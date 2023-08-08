@@ -2,7 +2,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import Bird from "../ecommers/Nothing/Bird";
 import Loginwith from "./loginwith";
+import Leaves from "@/public/leaves.png"
 import Link from "next/link";
+import Image from "next/image";
 import {toast} from 'react-hot-toast'
 import {signIn, useSession} from 'next-auth/react'
 import { useRouter } from "next/navigation";
@@ -72,8 +74,9 @@ const Login = () => {
         </div>
         <div className="flex max-lg:justify-center p-20 items-center  rounded-2xl max-lg:p-4   relative max-sm:flex-grow-0 flex-grow bg-gradient-to-b from-orange-500 to-orange-900  ">
           <form onSubmit={(e) => handleSubmit(e)} className=" flex flex-col gap-4 max-lg:w-full">
-            <img
-              src="/leaves.png"
+            <Image
+              alt="daun"
+              src={Leaves}
               className="absolute top-0 left-0 -scale-x-100  rounded-2xl pointer-events-none"
             />
             <h1 className="text-4xl font-poppins relative font-bold  mx-3 ">

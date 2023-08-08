@@ -19,10 +19,10 @@ const Navbar = (props: props) => {
       data-theme="pastel"
       className="flex py-2 justify-around items-center z-50 shadow-md  shadow-gray-300  text-white font-poppins"
     >
-      <div className="flex">
+      <div className="flex mx-3">
         <h1 className="bg-black text-white text-xl p-1 rounded-lg">Wism</h1>
       </div>
-      <div className="form-control w-7/12 flex flex-row items-center gap-1">
+      <div className="form-control w-7/12 overflow-x-hidden flex flex-row items-center gap-1">
         <input
           data-theme="dark"
           type="text"
@@ -52,7 +52,7 @@ const Navbar = (props: props) => {
               </label>
             </Link>
           </div>
-          <div>
+          <div className="relative ">
             <label
               tabIndex={1}
               className="btn btn-ghost btn-circle avatar mx-2 "
@@ -78,12 +78,12 @@ const Navbar = (props: props) => {
             <ul
               tabIndex={1}
               className={`menu menu-sm text-black  mt-4 p-2 shadow bg-base-100 rounded-box w-52 duration-300 absolute z-20  ${
-                sideprofile ? "right-1" : "-right-full"
+                sideprofile ? " -right-12" : "-right-96"
               }`}
             >
               <li>
                 <Link
-                  href={`/${props.session?.user?.name}`}
+                  href={`/${props.session?.user?.name}/store`}
                   className="justify-between"
                   shallow
                 >

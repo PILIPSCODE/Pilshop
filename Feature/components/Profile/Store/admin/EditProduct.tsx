@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 const EditProduct = (props:{product:any}) => {
 
  const modalRef = useRef<HTMLDialogElement>(null)
+ const [loading,setloading] = useState(false)
  const router = useRouter()
   
   const productObject = {
@@ -56,13 +57,16 @@ const EditProduct = (props:{product:any}) => {
 console.log(product.Tag)
   const handleaddpro = async(form: React.FormEvent<HTMLFormElement>) => {
     form.preventDefault();
-    
-     const res = await axios.put(`/api/product/${props.product.id}`,product)
-     if(res.status === 200){
-      
+    setloading(true)
+    const res = await axios.put(`/api/product/${props.product.id}`,product)
+    if(!res){
+      loading? toast.loading("Sabar Ya 😊😊") : ""
+    }
+    if(res.status === 200){
+      setloading(false)
       toast.success("Edit Successfully")
       router.refresh()
-
+      modalRef.current?.close()
      
         
     }else{
@@ -146,8 +150,8 @@ console.log(product.Tag)
             </select>
           </div>
           <div className="modal-action w-full flex justify-end">
-            <button className="btn" type="submit">Kirim</button>
-            <div className="btn btn-error" >Close</div>
+            <button className="btn btn-info" type="submit">Edit</button>
+            <div className="btn btn-error" onClick={() => modalRef.current?.close()} >Close</div>
           </div>
         </form>
     </dialog>

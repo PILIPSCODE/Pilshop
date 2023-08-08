@@ -7,6 +7,8 @@ import axios from "axios";
 import {signIn, useSession} from 'next-auth/react'
 import {toast} from 'react-hot-toast'
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Leaves from "@/public/leaves.png"
 
 const SignUp = () => {
   const [wings, setwings] = useState(false);
@@ -65,8 +67,9 @@ const SignUp = () => {
         </div>
         <div className="flex max-lg:justify-center p-20 items-center  rounded-2xl max-lg:p-4 lg:justify-end   relative max-sm:flex-grow-0 flex-grow bg-gradient-to-b from-purple-500 to-purple-900  ">
           <form onSubmit={(e) => handleSumbit(e)} className=" flex flex-col lg:text-end  gap-4 max-lg:w-full">
-            <img
-              src="/leaves.png"
+            <Image
+            alt="Leaves"
+              src={Leaves}
               className="absolute top-0 left-0 -scale-x-100  rounded-2xl pointer-events-none lg:scale-x-100"
             />
             <h1 className="text-4xl font-poppins relative font-bold  mx-3 ">

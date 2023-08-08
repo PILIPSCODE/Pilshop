@@ -32,7 +32,7 @@ const ManageProduct = (params: { params: string; products: any }) => {
   return (
     <>
       <Search/>
-    <div className="font-popins bg-base-300 p-2 h-[80vh] rounded-lg">
+    <div className="font-popins bg-base-300  relative p-2 h-[80vh] rounded-lg">
       <div className={`grid grid-cols-4  max-md:grid-cols-2 gap-1  px-2  text-gray-800  ${params.products?.length >= 1? "" : "hidden"}`}>
         <div className="flex justify-start py-2 mx-3  items-center gap-1  ">
           <PiBeerBottle size={25} />
@@ -85,7 +85,7 @@ const ManageProduct = (params: { params: string; products: any }) => {
         
       ) : <div className="w-full h-full items-center flex justify-center"><CartEmpty text={'no product in here, Add and Sells Your Product'}/></div>
       }
-      <div className="fixed bottom-7 right-7">
+      <div className="absolute bottom-4 right-4">
         <Link href={`/admin/ManageProduct/actions/addProduct`}>
           <div className="text-white bg-black px-3 py-1 text-2xl rounded-md">
             +
