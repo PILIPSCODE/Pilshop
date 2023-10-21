@@ -4,7 +4,12 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { BsFillPencilFill } from "react-icons/bs";
 import { useRouter } from "next/navigation";
-const EditProduct = (props:{product:any}) => {
+type OwnerTag = {
+  email :String
+   tag: String
+   UserStoreids: String
+}
+const EditProduct = (props:{product:any,OwnerTag:OwnerTag[]}) => {
 
  const modalRef = useRef<HTMLDialogElement>(null)
  const [loading,setloading] = useState(false)
@@ -16,7 +21,7 @@ const EditProduct = (props:{product:any}) => {
     Tag: props.product.Tag,
     stock: props.product.stock,
     Description: props.product.Description,
-    
+    OwnerTag:props.product.OwnerTag
   };
   const [product, setProduct] = useState(productObject);
   type badge = {
@@ -54,7 +59,6 @@ const EditProduct = (props:{product:any}) => {
       badge: "Barang Elektronik",
     },
   ];
-console.log(product.Tag)
   const handleaddpro = async(form: React.FormEvent<HTMLFormElement>) => {
     form.preventDefault();
     setloading(true)
@@ -86,7 +90,7 @@ console.log(product.Tag)
             <input
               type="text"
               defaultValue={props.product.ProductName}
-              onChange={(e) => setProduct({ProductName: e.target.value,Tag:product.Tag,stock:product.stock,Price:product.Price,Description:product.Description})}
+              onChange={(e) => setProduct({ProductName: e.target.value,Tag:product.Tag,stock:product.stock,Price:product.Price,Description:product.Description, OwnerTag:product.OwnerTag})}
               placeholder="Pilshirt X"
               required
               className=" px-2 focus:outline-none h-10   bg-base-200    w-full"
@@ -98,7 +102,7 @@ console.log(product.Tag)
               type="number"
               required
               defaultValue={props.product.Price}
-              onChange={(e) => setProduct({ProductName: product.ProductName,Tag:product.Tag,stock:product.stock,Price:Number(e.target.value),Description:product.Description,})}
+              onChange={(e) => setProduct({ProductName: product.ProductName,Tag:product.Tag,stock:product.stock,Price:Number(e.target.value),Description:product.Description,OwnerTag:product.OwnerTag})}
               placeholder="$"
               className="  px-2 focus:outline-none h-10  bg-base-200      w-full"
             />
@@ -108,7 +112,7 @@ console.log(product.Tag)
             <input
               type="number"
               placeholder="0"
-              onChange={(e) => setProduct({ProductName: product.ProductName,Tag:product.Tag,stock:Number(e.target.value),Price:product.Price,Description:product.Description,})}
+              onChange={(e) => setProduct({ProductName: product.ProductName,Tag:product.Tag,stock:Number(e.target.value),Price:product.Price,Description:product.Description,OwnerTag:product.OwnerTag})}
               required
               defaultValue={props.product.stock}
               className="  px-2 focus:outline-none h-10 bg-base-200     w-full"
@@ -119,7 +123,7 @@ console.log(product.Tag)
             <textarea
               required
               maxLength={500}
-              onChange={(e) => setProduct({ProductName: product.ProductName,Tag:product.Tag,stock:product.stock,Price:product.Price,Description:e.target.value,})}
+              onChange={(e) => setProduct({ProductName: product.ProductName,Tag:product.Tag,stock:product.stock,Price:product.Price,Description:e.target.value,OwnerTag:product.OwnerTag})}
               placeholder="max-500 Length"
               defaultValue={props.product.Description}
               className="  px-2 focus:outline-none bg-base-200   resize-none h-20 w-full"
@@ -127,8 +131,8 @@ console.log(product.Tag)
           </div>
           <div className="flex gap-1">
             <select
-            onChange={(e) => setProduct({ProductName: product.ProductName,Tag:e.target.value,stock:product.stock,Price:product.Price,Description:product.Description,}) }
-              defaultValue={"Select Badge"}
+            onChange={(e) => setProduct({ProductName: product.ProductName,Tag:e.target.value,stock:product.stock,Price:product.Price,Description:product.Description,OwnerTag:product.OwnerTag}) }
+              defaultValue={`${props.product.Tag}`}
               className="select select-info w-full max-w-xs"
             >
               <option disabled>Select Badge</option>
@@ -139,14 +143,16 @@ console.log(product.Tag)
               ))}
             </select>
             <select
-              defaultValue={props.product.Tag}
+              defaultValue={props.product.OwnerTag}
               className="select select-info w-full max-w-xs"
+              onChange={(e) => setProduct({ProductName: product.ProductName,Tag:product.Tag,stock:product.stock,Price:product.Price,Description:product.Description,OwnerTag:e.target.value}) }
             >
               <option disabled>Select Your Filter</option>
+              {props.OwnerTag.map((e,index) => (
 
-              <option className="flex gap-2">Baju</option>
-              <option className="flex gap-2">Celana</option>
-              <option className="flex gap-2">Tas</option>
+              <option key={index} className="flex gap-2">{e.tag}</option>
+              ))}
+
             </select>
           </div>
           <div className="modal-action w-full flex justify-end">

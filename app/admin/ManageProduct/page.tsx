@@ -7,9 +7,9 @@ const page = async({params}:{params:{userid:string}}) => {
    const product = await UseCurr()
   return (
 
-    <div className='w-full h-screen p-10 '>
+    <div className='w-full h-screen p-10 max-sm:p-3 max-sm:pt-7 '>
      
-        <ManageProduct params={params.userid} products={product?.products}/>
+        <ManageProduct params={params.userid} products={product?.usersStore}/>
     </div>
   )
 }

@@ -1,10 +1,12 @@
 
 import Badge from '@/Feature/components/ecommers/Landing/Badge'
-import Navbar from '@/Feature/components/ecommers/Landing/Navbar'
+import Landing from '@/Feature/components/ecommers/Landing/Landing'
 import React from 'react'
+
 import Hero from '@/Feature/components/ecommers/Landing/Hero'
 import { GetProduct } from '@/prisma/product'
-import getSS  from "@/app/actions/getSesions"
+import getSS  from "@/app/actions/getCurrentUser"
+import dynamic from 'next/dynamic'
 
 
 
@@ -15,10 +17,9 @@ const page = async() => {
 
   return (
     <>
-    <div  className='overflow-x-hidden h-screen' data-theme="retro">
-     <Navbar session={session}/>
-     <Hero/>
-     <Badge product={product}/>
+    <div  className='overflow-x-hidden  h-screen' data-theme="pastel">
+     <Landing session={session} products={product}/>
+    
     </div>
     </>
     )

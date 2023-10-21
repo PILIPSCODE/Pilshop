@@ -15,11 +15,12 @@ export const AddProduct = async(products:product) => {
       Tag:String(products.Tag),
       stock:Number(products.stock),
       isChecked:Boolean(products.isChecked),
+      OwnerTag:String(products.OwnerTag),
       Rate:5,
       Description:String(products.Description),
-      users:{
+      usersStore:{
         connect:{
-          id:String(products.userIds)
+          id:String(products.userStoreIds)
         }
       }
     },
@@ -50,6 +51,7 @@ export const DeleteProduct = async(id:string) => {
         Price:Number(updtproduct.Price),
         Tag:String(updtproduct.Tag),
         stock:Number(updtproduct.stock),
+        OwnerTag:String(updtproduct.OwnerTag),
         isChecked:Boolean(updtproduct.isChecked),
       }
     })

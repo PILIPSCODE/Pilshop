@@ -1,61 +1,51 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { FaHeart, FaSearchPlus } from "react-icons/fa";
+import { FaChartBar, FaHeart, FaSearch, FaSearchPlus } from "react-icons/fa";
 import CartQty from "./CartQty";
-import type { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 
+import React from "react";
 type props = {
-  session: Session | null;
+  session: any;
 };
 const Navbar = (props: props) => {
-  const [searchon, setSearcon] = useState(false);
   const [sideprofile, SetSideProfile] = useState(false);
-
   return (
-    <div
-      data-theme="pastel"
-      className="flex py-2 justify-around items-center z-50 shadow-md  shadow-gray-300  text-white font-poppins"
-    >
-      <div className="flex mx-3">
-        <h1 className="bg-black text-white text-xl p-1 rounded-lg">Wism</h1>
+    <div className="flex justify-center shadow-lg ">
+
+    <div className="flex py-5  w-11/12 max-sm:w-full justify-between items-center  z-50  text-white font-poppins">
+      <div className="flex mr-3  rounded-lg">
+        <h1 className="bg-gradient-to-b max-md:hidden from-blue-300 to-blue-500 bg-clip-text text-transparent text-3xl font-poppins font-bold p-1">Wimerce</h1>
       </div>
-      <div className="form-control w-7/12 overflow-x-hidden flex flex-row items-center gap-1">
+      <div className="form-control w-7/12 overflow-x-hidden flex flex-row-reverse items-center gap-1">
         <input
-          data-theme="dark"
           type="text"
           placeholder={"Search And Enter"}
-          className={`h-14 w-full  sm:rounded-lg max-sm:absolute  pl-6   max-sm:right-0 ${
-            searchon
-              ? "max-sm:z-40 max-sm:duration-300 max-sm:translate-y-14"
-              : "max-sm:translate-y-0 max-sm:duration-300 max-sm:-z-10"
-          }`}
+          className={`h-10 w-full text-black bg-gray-300 sm:rounded-lg  max-sm:duration-300   pl-6`}
         />
-        <FaSearchPlus
-          className="text-2xl text-black"
-          onClick={() => {
-            setSearcon(!searchon);
-          }}
-        />
+       
       </div>
-      {props.session ? (
-        <div className="flex-none flex items-center">
-          <Link href="/favorite">
-            <FaHeart className="text-black" size={25} />
+      <div className="flex-none flex lg:gap-3 items-center">
+        <div className="flex gap-2 mr-2">
+        <Link href="/favorite" className="flex gap-1 text-black">
+          <FaHeart size={25} />
+          <h1 className="max-lg:hidden">Favorite</h1>
+        </Link>
+          <Link href="/Cart">
+            <label className="flex gap-1 text-black ">
+              <CartQty />
+              <h1 className="max-lg:hidden">Cart</h1>
+            </label>
           </Link>
-          <div className="dropdown dropdown-end z-50">
-            <Link href="/Cart">
-              <label className="btn btn-ghost btn-circle">
-                <CartQty />
-              </label>
-            </Link>
-          </div>
+      
+        </div>
+        {props.session.name !== undefined ? (
           <div className="relative ">
             <label
               tabIndex={1}
-              className="btn btn-ghost btn-circle avatar mx-2 "
+              className="avatar"
             >
               <div className="w-10 relative">
                 <Image
@@ -63,9 +53,9 @@ const Navbar = (props: props) => {
                   alt={"kkewoko"}
                   fill
                   src={`${
-                    props.session?.user?.image !== undefined &&
-                    props.session?.user?.image !== null
-                      ? props.session?.user?.image
+                    props.session?.image !== undefined &&
+                    props.session?.image !== null
+                      ? props.session?.image
                       : "/profile-no-log.png"
                   }`}
                   onClick={() => {
@@ -83,12 +73,15 @@ const Navbar = (props: props) => {
             >
               <li>
                 <Link
-                  href={`/${props.session?.user?.name}/store`}
+                  href={`/${props.session?.name}`}
                   className="justify-between"
                   shallow
                 >
                   Profile
                 </Link>
+              </li>
+              <li className={`${props.session.usersStore ? "" : "hidden"}`}>
+                <Link href={`/admin/Dasboard`}>Dashboard</Link>
               </li>
               <li>
                 <a>Settings</a>
@@ -98,12 +91,13 @@ const Navbar = (props: props) => {
               </li>
             </ul>
           </div>
-        </div>
-      ) : (
-        <Link href={"/auth/SignIn"} className="btn btn-warning">
-          SignIn
-        </Link>
-      )}
+        ) : (
+          <Link href={"/auth/SignIn"} className="btn btn-warning">
+            SignIn
+          </Link>
+        )}
+      </div>
+    </div>
     </div>
   );
 };

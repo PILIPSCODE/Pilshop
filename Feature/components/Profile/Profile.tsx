@@ -9,13 +9,12 @@ import Link from "next/link";
 
 
 type params = {
-  YourAcc:User,
+  YourAcc:any,
   params:String,
+  content:String,
   profileParams:any
 }
 const Profile = (params:params) => {
- 
-
 if(params.profileParams !== null){
 
   return (
@@ -35,7 +34,7 @@ if(params.profileParams !== null){
       <div className="break-words flex-grow w-min max-sm:w-11/12 ">
         <div className="flex items-center gap-2 max-sm:justify-center ">
           <h1 className="font-bold text-2xl">{params.profileParams?.name}</h1>
-          {params.YourAcc?.name === params.profileParams?.name 
+          {params.YourAcc?.email === params.profileParams?.email
           ?
           <div className="flex items-center justify-center bg-stone-200 p-2 rounded-2xl">
             <FaEdit size={25} />
@@ -45,22 +44,23 @@ if(params.profileParams !== null){
           }
         </div>
         <p className="max-sm:text-center">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Doloribus sed, perspiciatis cum eos voluptas ipsum dolores
+          {params.profileParams?.bio}
         </p>
-        <a href="https://google.com" className="underline mt-2 flex max-sm:justify-center w-full">
-          Link Here
+        <a href={`${params.profileParams?.link}`} className="underline mt-2 flex max-sm:justify-center w-full">
+         {params.profileParams?.link}
         </a>
       </div>
     </div>
     <div className="flex items-center justify-center max-md:flex-col">
       <Sosials />
    
-      <div className="tooltip mx-2 tooltip-bottom"  data-tip={`${params.profileParams?.name} ${params.params === "store"?"store":"content"}`}>
+      <div className="tooltip mx-2 tooltip-bottom"  data-tip={`${params.profileParams?params.profileParams?.name || params?.content :"haven't"} ${params.params === "store"? "store":"content"}`}>
         {params.params === 'store'?
-      <Link href={`/${params.profileParams?.name}/store`} className="btn"> <FaStore size={25} /></Link>
+        params.profileParams?.name === params.YourAcc.name
+        ? <Link href={`${params.YourAcc.usersStore?`/${params.YourAcc?.name}/store`:"/auth/store"}`} className="btn"> <FaStore size={25} /></Link> 
+        :<Link href={`${params.profileParams.usersStore?`/${params.profileParams?.name}/store`:""}`} className="btn"> <FaStore size={25} /></Link> 
       :
-      <Link href={`/${params.profileParams?.name}`} className="btn"> <FaMobile size={25} /></Link>
+      <Link href={`/${params.content}`} className="btn"> <FaMobile size={25} /></Link>
         }
       </div>
     
@@ -68,11 +68,7 @@ if(params.profileParams !== null){
     </div>
   </div>
   )
-}else{
-  return (
-      <div><h1>404 User Not Found</h1></div>
-  )
-}
+    }
 }
 
 export default Profile

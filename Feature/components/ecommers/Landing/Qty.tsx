@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Appdispatch } from "@/redux/store";
 import { increment, decrement } from "@/redux/features/cart-Slice";
+import { toast } from "react-hot-toast";
 
 type ProductFilt = {
   product: any;
@@ -13,25 +14,28 @@ const Qty = (props: ProductFilt) => {
 
   const handleMin = (e: any) => {
     dispact(decrement(e));
+    if(props.qty === 1){
+      toast.success("Remove product from cart")
+    }
   };
   const hanndlePlus = (e: any) => {
     dispact(increment(e));
   };
 
   return (
-    <div className={`opacity-100  flex rounded-md  `}>
+    <div className={`opacity-100 border px-1 border-black text-xl max-sm:text-sm  flex rounded-md gap-5 items-center `}>
       <div
         onClick={() => handleMin(props.product)}
-        className="py-2 px-4 max-lg:px-2 max-lg:py-0 max-sm:px-1 "
+        className=""
       >
         -
       </div>
-      <h1 className="px-6 py-2 max-lg:px-4 max-lg:py-0 max-sm:px-2 border  border-x-2">
+      <h1 className="">
         {String(props.qty)}
       </h1>
       <div
         onClick={() => hanndlePlus(props.product)}
-        className="py-2 max-lg:px-2 max-lg:py-0 px-4  max-sm:px-1"
+        className=""
       >
         +
       </div>

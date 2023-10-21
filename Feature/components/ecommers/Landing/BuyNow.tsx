@@ -4,6 +4,7 @@ import AddtoCart from "./AddtoCart";
 import { QtySelector } from "@/redux/features/cart-Slice";
 import {  useAppSelector } from "@/redux/store";
 import ReviewUser from "./ReviewUser";
+import Image from "next/image";
 type products = {
   product: any;
 };
@@ -26,8 +27,10 @@ const BuyNow = (proops: products) => {
             ✕
           </button>
           <div className="grid grid-cols-2 max-sm:grid-cols-1 ">
-            <div className="relative max-w-full max-h-full">
-              <img
+            <div className="relative w-full h-full">
+              <Image
+                alt="product" fill
+                style={{objectFit:"contain"}}
                 src={`${proops.product.img}`}
                 className="  rounded-2xl w-full h-full lg:p-20 "
               />
@@ -61,7 +64,7 @@ const BuyNow = (proops: products) => {
       </dialog>
       <button
         onClick={() => modalref.current?.showModal()}
-        className=" bg-green-600 text-white p-1 md:text-xl text-xs"
+        className=" bg-green-600 text-white p-1 md:text-base text-xs f-custom"
       >
         Buy Now
       </button>
@@ -70,3 +73,10 @@ const BuyNow = (proops: products) => {
 };
 
 export default BuyNow;
+
+
+
+
+
+
+/* y */

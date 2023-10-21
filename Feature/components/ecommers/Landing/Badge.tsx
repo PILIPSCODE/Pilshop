@@ -1,7 +1,5 @@
 "use client"
-import {useState} from 'react'
-import dynamic from 'next/dynamic'
-import Product from './Product'
+import React, {SetStateAction, useState} from 'react'
 import {GiClothes,GiLipstick} from 'react-icons/gi'
 import {IoFastFoodSharp} from 'react-icons/io5'
 import {FcSportsMode} from 'react-icons/fc'
@@ -10,64 +8,67 @@ import {BsFan} from 'react-icons/bs'
 import {SiYourtraveldottv} from 'react-icons/si'
 import {MdToys,MdRecommend} from 'react-icons/md'
 import { IconType } from 'react-icons'
-const ProductDy = dynamic(() => import('./Product'))
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css/navigation';
+import "swiper/css";
+import { Navigation } from 'swiper'
 type props ={
     product:any
+    setProfile:React.Dispatch<SetStateAction<string>>
 }
 
 const Badge = (props:props) => {
-const [filterProduct,setFileterProduct] = useState("#Untuk Anda")
   type User = {
     badge:String,
     icons:IconType,
   }
     const badge:User[] = [
         {
-            badge:"#Untuk Anda"
+            badge:"Untuk Anda"
             ,
             icons:MdRecommend
             
         },
         {
-            badge:"#Fashion dan Pakaian",
+            badge:"Fashion dan Pakaian",
             icons:GiClothes
         },
         {
-            badge:"#Kecantikan dan Perawatan Pribadi"
+            badge:"Kecantikan "
             ,
             icons:GiLipstick
         },
         {
-            badge:"#Rumah Tangga dan Furnitur"
+            badge:"Rumah Tangga dan Furnitur"
             ,
             icons:GiClothes
         },
         {
-            badge:"#Makanan dan Minuman",
+            badge:"Makanan dan Minuman",
             icons:IoFastFoodSharp
         },
         {
-            badge:"#Olahraga dan Aktivitas Luar Ruangan",
+            badge:"Alat-Alat Olahraga",
             icons:FcSportsMode
         },
         {
-            badge:"#Mainan dan Hiburan",
+            badge:"Mainan dan Hiburan",
             icons:MdToys
         },
         {
-            badge:"#Perlengkapan Bayi dan Anak",
+            badge:"Bayi dan Anak",
             icons:FaBabyCarriage
         },
         {
-            badge:"#Perjalanan dan Aksesoris",
+            badge:"Perjalanan dan Aksesoris",
             icons:SiYourtraveldottv
         },
         {
-            badge:"#Kendaraan dan Aksesori",
+            badge:"Kendaraan dan Aksesori",
             icons:FaMotorcycle
         },
         {
-            badge:"#Barang Elektronik",
+            badge:"Barang Elektronik",
             icons:BsFan
         },
     ]
@@ -75,15 +76,38 @@ const [filterProduct,setFileterProduct] = useState("#Untuk Anda")
        
   return (
     <>
-    <div data-theme="pastel" className='my-4 mx-auto   rounded-xl   w-11/12'>
-        <h1 className='mx-4 text-xl border-b-2 border-slate-700'>Category</h1>
-    <div className='  gap-9 p-4 grid grid-cols-6 max-md:grid-cols-4    '>
+    <div data-theme="pastel" className='category mx-auto flex items-center  py-4  '>
+    <Swiper 
+      spaceBetween={10}
+      slidesPerView={7}
+      navigation={true}
+      modules={[Navigation]}
+      breakpoints={{    
+        100:{
+         slidesPerView:4
+        },
+        700:{
+         slidesPerView:8
+        },
+        1020:{
+        slidesPerView:5
+        },
+        1200:{
+            slidesPerView:6
+        }
+      }}
+    className='flex gap-4  justify-between  items-stretch h-12 max-lg:h-auto w-11/12  mx-10 '>
         {badge.map((el,index) => (
-        <div key={index} className=" rounded-md flex justify-center  bg-slate-300  text-slate-700 tooltip" data-tip={`${el.badge}`} onClick={() => {setFileterProduct(`${el.badge}`)}}><el.icons className='py-1 text-5xl max-md:text-3xl'/></div>
+        <SwiperSlide key={index} className='text-center h-full '  onClick={() => {props.setProfile(`${el.badge}`)}}>
+            <div className="rounded-md flex flex-col h-full  justify-center items-center  mx-auto bg-blue-300  text-slate-700">
+
+            <el.icons className='py-1 lg:hidden text-4xl'/>
+            <div className='max-lg:hidden whitespace-nowrap text-sm'>{el.badge}</div>
+            </div>
+        </SwiperSlide>
         ))}
+    </Swiper>
     </div>
-    </div>
-    <ProductDy filterproduct={filterProduct} product={props.product}/>
     </>
   )
 }

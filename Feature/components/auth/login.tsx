@@ -16,7 +16,7 @@ const Login = () => {
   const [userReq, setuserReq] = useState({email:"",password:""});
   const session = useSession()
   const router = useRouter()
-
+ console.log(session)
 
   useEffect(() => {
     if(session?.status === "authenticated"){
@@ -56,7 +56,7 @@ const Login = () => {
   
   const handleSubmit = async(e:React.FormEvent) => {
     e.preventDefault();
-    const res = await signIn("credentials",{...userReq,redirect:false})
+    const res = await signIn("credentials",{...userReq,redirect:true})
     res?.error === "Invalid credentials"?toast.error("Invalid username or password") :router.push("/")
   }
 
@@ -72,7 +72,7 @@ const Login = () => {
         <div className="flex justify-center h-full max-lg:h-auto max-sm:flex-grow  items-center px-20 bg-log rounded-2xl ">
           <Bird wings={wings} change={change} showpasss={showpass} />
         </div>
-        <div className="flex max-lg:justify-center p-20 items-center  rounded-2xl max-lg:p-4   relative max-sm:flex-grow-0 flex-grow bg-gradient-to-b from-orange-500 to-orange-900  ">
+        <div className="flex max-lg:justify-center p-20 items-center  rounded-2xl max-lg:p-4   relative max-sm:flex-grow-0 flex-grow bg-gradient-to-b from-slate-500 to-slate-900  ">
           <form onSubmit={(e) => handleSubmit(e)} className=" flex flex-col gap-4 max-lg:w-full">
             <Image
               alt="daun"

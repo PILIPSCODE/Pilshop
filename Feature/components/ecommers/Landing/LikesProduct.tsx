@@ -1,11 +1,11 @@
-import React from "react";
+'use client'
+import React, { useEffect, useState } from "react";
 import { Appdispatch, useAppSelector } from "@/redux/store";
 import { likedpro } from "@/redux/features/cart-Slice";
 import { FaHeart } from "react-icons/fa";
 import { Wishlists } from "@/redux/features/cart-Slice";
 import { useDispatch } from "react-redux";
 import { Carti } from "@/redux/interface/Cart";
-import axios from "axios";
 import { FavSet } from "@/redux/LocalStorage";
 type Liked = {
   liked: String;
@@ -13,19 +13,25 @@ type Liked = {
 };
 
 const LikesProduct = (props: Liked) => {
-  const qty = useAppSelector((state) => likedpro(state, props.liked));
+  const [fav,setFav] = useState<Boolean | undefined>(false)
+  const favselec = useAppSelector((state) => likedpro(state, props.liked));
   const dispact = useDispatch<Appdispatch>();
+
+  useEffect(() => {
+    setFav(favselec)
+  },[favselec])
+
 
   const handleClick = () => {
     dispact(Wishlists(props.product));
     FavSet(props.product);
   };
-  if (!qty)
+  if (!fav)
     return (
       <div>
         <FaHeart
           onClick={handleClick}
-          className="absolute bottom-3 left-3 text-2xl"
+          className="text-xl text-white max-sm:text-sm"
         />
       </div>
     );
@@ -33,7 +39,7 @@ const LikesProduct = (props: Liked) => {
     <div>
       <FaHeart
         onClick={handleClick}
-        className="absolute bottom-3 left-3 text-red-600 text-2xl"
+        className="  text-red-600 text-xl max-sm:text-sm"
       />
     </div>
   );

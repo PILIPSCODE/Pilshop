@@ -37,7 +37,7 @@ const Favorite = () => {
   const dispact = useDispatch<Appdispatch>();
  
   return (
-    <div className="h-screen flex justify-center font-poppins">
+    <div className="h-screen flex justify-center font-poppins overflow-y-scroll">
       <div className="w-7/12 bg-base-200 conttainer-cart fixed z-40 flex rounded-lg  h-16 max-lg:w-10/12 max-sm:w-11/12 shadow-md shadow-slate-700">
         <div onClick={() => dispact(unFav())} className="flex items-center gap-3 mx-2">
           <button  className="bg-error p-1 rounded-lg pointer-events-none"><FaTrash size={25}/></button>
@@ -53,71 +53,72 @@ const Favorite = () => {
           />
         </div>
         <div className="flex items-center justify-center gap-3 mx-5">
+          <Link href="/Cart">
           <CartQty/>
+          </Link>
           <Drawer in="Fav"/>
           <Link href="/">
             <FaHouseUser size={25} />
           </Link>
         </div>
       </div>
-      <div className="w-7/12  conttainer-cart mt-20 relative z-0 text-black flex rounded-lg my-2 h-28 max-lg:w-10/12 ax-sm:w-11/12 max-[490px]:flex max-[490px]:flex-col max-[490px]:h-auto">
-        <div className="grid grid-cols-4 max-xl:grid-cols-3 max-sm:grid-cols-2 gap-2">
+      <div className="w-7/12  h-auto conttainer-cart mt-20 relative z-0 text-black rounded-lg my-2 max-lg:w-10/12 max-sm:w-11/12 ">
+        <div className="grid grid-cols-4 max-xl:grid-cols-3 w-full max-md:grid-cols-2 gap-2">
         {Favorite.map((e, index) => (
-            <div key={index} className="flex flex-col   relative font-poppins">
-              <div className="w-full h-full relative rounded-xl bg-white">
-                <Image
-                  alt={`product${index}`}
-                  width={500}
-                  height={300}
-                  src={`${e.product.img}`}
-                  className="w-full h-full  rounded-xl"
-                />
-                <div
-                  onClick={() => HandleClick(e.product.id)}
-                  className={`block p-1 rounded-md   bg-gray-900/50 text-white absolute bottom-2 right-2 z-10`}
-                >
-                  <AiFillCaretUp
-                    className={`${
-                      Details === e.product.id
-                        ? "rotate-180  text-red-600"
-                        : "rotate-0 text-blue-500"
-                    } duration-300 text-3xl max-lg:text-xl`}
-                  />
-                </div>
-              </div>
-              <div
-                className={`w-full text-white flex flex-col    backdrop-blur-sm h-full duration-300 absolute ${
-                  Details === e.product.id ? "opacity-1 " : "opacity-0 "
-                } bg-black/50  rounded-xl`}
-              >
-                <div className="w-full flex justify-center items-center mt-2 whitespace-normal break-words">
-                  <h1 className=" p-2 bg-black rounded-full text-center w-10/12 md:text-xl text-xs ok">
-                    {e.product.ProductName}
-                  </h1>
-                </div>
-                <div className="w-full flex justify-between  items-center mt-2 whitespace-normal break-words">
-                  <h1 className="ms-2  md:text-lg text-xs ok">
-                    {Number(e.product.Price)} $
-                  </h1>
-                  <h1 className="me-2  md:text-lg text-xs ok">
-                    {Number(e.product.Rate)} ⭐
-                  </h1>
-                </div>
+             <div
+             key={index}
+             className="flex flex-col w-full overflow-hidden border border-black  relative font-poppins"
+           >
+             <div className="w-full h-96 bg-white  max-sm:h-72 relative  ">
+               <div
+                 className={`duration-150 ${
+                   Details === e.product.id ? "h-full" : "h-4/6 max-sm:h-3/5"
+                 } relative`}
+               >
+                 <Image
+                   alt={`product${index}`}
+                   fill
+                   src={`${e.product.img}`}
+                   className="w-full h-full object-cover bg-gray-400 "
+                 />
+               </div>
+            
+               <div className="absolute top-2 right-3  z-50">
+                 <LikesProduct liked={e.product.id} product={e.product} />
+               </div>
+               <div className=" bg-white relative h-full z-40">
+                 <div className="flex flex-col gap-1 justify-end px-2">
+                   <h1 className="  md:text-base max-md:text-sm max-sm:text-xs ok">
+                     {e.product.ProductName}
+                   </h1>
+                   <div className="flex gap-3">
+                   
+                       <AddtoCart AddQty={e.product} />
+                   
+                     <BuyNow product={e.product} />
+                   </div>
+                   <div className="flex justify-between items-center">
+                     <h1 className=" md:text-base text-xs ok">
+                       {Number(e.product.Rate)} ⭐ | Selled 10 k
+                     </h1>
+                   </div>
+                 </div>
+               </div>
+             </div>
 
-                <div className="flex-grow flex justify-center max-sm:flex-col  items-center gap-2">
-                  <div className="border p-1">
-                    <AddtoCart AddQty={e.product} />
-                  </div>
-                </div>
-                <div className="w-full h-24 relative rounded-t-full text-center max-sm:h-20 bg-black">
-                  <h1 className="md:text-xl mb-3 text-xs">
-                    Qty: {Number(e.product.stock)}
-                  </h1>
-                  <BuyNow product={e.product} />
-                  <LikesProduct liked={e.product.id} product={e.product}/>
-                </div>
-              </div>
-            </div>
+             <div
+               onClick={() => HandleClick(e.product.id)}
+               className={`w-full text-white flex flex-col ${
+                 Details === e.product.id ? "opacity-0" : "opacity-100"
+               }  h-full duration-300 absolute bg-black/50 justify-between`}
+             >
+               <div className="flex mt-3 ">
+                 <h1 className="px-2  bg-black md:text-lg text-xs ok">
+                   {Number(e.product.Price)} $
+                 </h1>
+               </div>
+             </div>
+           </div>
           ))}
         </div>
       </div>

@@ -8,5 +8,5 @@ export default withAuth({
 
 
 export const config = {
-    matcher:["/Cart","/profile/:path*","/favorite"]
+    matcher:["/admin/:path*"]
 }

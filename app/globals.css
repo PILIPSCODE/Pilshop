@@ -9,7 +9,7 @@ html{
     overflow-x: hidden;
 }
 .c::-webkit-scrollbar{
-    appearance: none;
+  -webkit-appearance: none;
 }
 .bg-log{
     background-image: url('/bglog.jpg');
@@ -41,7 +41,12 @@ html{
     transform: translateY(-70px);
 }
 
-
+.font-outline-2 {
+  -webkit-text-stroke: 2px black;
+}
+.font-outline-4 {
+  -webkit-text-stroke: 4px black;
+}
 .eye{
     animation: eye 20s infinite;
     transition: 3s;
@@ -153,4 +158,40 @@ html{
         opacity: 0;
     }
   
+}
+
+.category .swiper-button-prev::after, .forsale .swiper-button-prev::after {
+  font-size: 25px;
+  background: black;
+  color: white;
+  border-radius: 50px;
+  position: relative;
+  transform: translateX(-5px);
+  padding: 3px 8px;
+  opacity: 0;
+}
+.category .swiper-button-next::after, .forsale .swiper-button-next::after {
+  font-size: 25px;
+  background: black;
+  color: white;
+  transform: translateX(5px);
+  border-radius: 50px;
+  padding: 3px 8px;
+  opacity: 0;
+}
+.category:hover .swiper-button-prev::after, .forsale:hover .swiper-button-prev::after{
+  opacity: 1;
+}
+.category:hover .swiper-button-next::after, .forsale:hover .swiper-button-next::after{
+  opacity: 1;
+}
+.swiper{
+  padding: 0 10px !important;
+}
+
+
+@media (max-width:400px) {
+  .f-custom{
+    font-size: 10px;
+  }
 }

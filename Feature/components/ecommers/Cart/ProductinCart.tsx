@@ -19,7 +19,6 @@ const ProductinCart = () => {
   useEffect(() => {
     setincart(inCarto);
   }, [inCarto]);
-  console.log(inCart);
   const dispact = useDispatch<Appdispatch>();
   const handelclick = (e: Carti) => {
     let cek = {
@@ -31,7 +30,7 @@ const ProductinCart = () => {
   return (
     <div>
       <NavbarCart select={selectall} setSelect={setSellectAll} />
-      <div className="flex flex-col items-center pt-20   py-32">
+      <div className="flex flex-col items-center pt-10   py-32">
         {inCart.length === 0 ? (
           <CartEmpty text={'Cart Empty no items in here'}/>
         ) : (
@@ -54,7 +53,7 @@ const ProductinCart = () => {
                   alt={`Product${index}`}
                   width={90}
                   height={500}
-                  className=" max-h-24 max-[490px]:max-h-full rounded-md max-[490px]:w-1/2"
+                  className=" max-h-24 max-[490px]:max-h-full object-cover rounded-md max-[490px]:w-1/2"
                   src={`${el.product.img}`}
                 ></Image>
               </div>

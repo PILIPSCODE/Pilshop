@@ -18,9 +18,14 @@ model product {
   isChecked Boolean?
   stock Float?
   Rate Float?
+  OwnerTag String?
   Description String?
-   userIds String @db.ObjectId
-   users User @relation(fields: [userIds], references: [id])
+
+  userStoreIds String @db.ObjectId
+  usersStore UserStore @relation(fields: [userStoreIds], references: [id])
+
+  ordersItems OrderItem[]
+
 }
 
 model User{
@@ -29,16 +34,65 @@ model User{
    email String? @unique
    image String? 
    emailVerified   DateTime?
+   bio String? 
+   link String? 
    hashedPassword String?
    createdAt DateTime @default(now())
    updateAt DateTime @updatedAt
 
-   productids String[] @db.ObjectId
-   products product[] 
+   usersStore UserStore?
 
    accounts Account[]
+
+  
+  
+}
+model UserStore{
+   id String   @id @default(auto()) @map("_id") @db.ObjectId
+   image String? 
+   name String?
+   email String @unique
+   usersAccount User @relation (fields: [email], references: [email])
+   bio String?
+   link String? 
+
+   productids String[] @db.ObjectId
+   products product[] 
+   
+   orders OrderItem[]
+
+   ownerTagsids String[] @db.ObjectId
+   ownerTags ownerTags[]
+
+   
+}
+model Orders{
+   id String   @id @default(auto()) @map("_id") @db.ObjectId
+   email String @unique
+   createdAt DateTime @default(now())
+   Method String?
+   Status String?
+   
+   OrderItems OrderItem []
+   
+}
+model OrderItem {
+   id String   @id @default(auto()) @map("_id") @db.ObjectId
+   orderId String @db.ObjectId 
+   order Orders   @relation(fields: [orderId], references: [id])
+   UserStoreids String[] @db.ObjectId
+   UserStore UserStore @relation(fields: [UserStoreids],references: [id])
+   productId String @db.ObjectId 
+   products product   @relation(fields: [productId], references: [id])
 }
 
+model ownerTags{
+   id String   @id @default(auto()) @map("_id") @db.ObjectId
+   email String @unique
+   tag String
+   UserStoreids String @db.ObjectId
+   UserStores UserStore @relation(fields: [UserStoreids],references: [id])
+}
 model Account{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   userId             String   @db.ObjectId

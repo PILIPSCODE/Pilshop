@@ -10,7 +10,7 @@ import {
 } from "../interface/Cart";
 import { RootState } from "../store";
 import { getCookie, setCookie } from "cookies-next";
-import { LocalStorage, CartSet } from "../LocalStorage";
+import {  CartSet } from "../LocalStorage";
 export interface CartState {
   cartItems: CartItems[];
   Wishlist: Wishlist[];
@@ -31,11 +31,14 @@ const initialState: CartState = {
 const DataFavCookie = getCookie("Favorite");
 const datafav = DataFavCookie ? JSON.parse(String(DataFavCookie)) : "";
 datafav ? (initialState.Wishlist = datafav) : "";
+if (datafav) {
+  initialState.Wishlist = datafav;
+}
 
 const DataCart = getCookie("CartItems");
 DataCart ? "" : setCookie("CartItems", []);
 const data = DataCart ? JSON.parse(String(DataCart)) : "";
-if (datafav) {
+if (DataCart) {
   initialState.cartItems = data;
   initialState.qty = data.length;
 }
@@ -74,8 +77,8 @@ export const Cart = createSlice({
         if (typeof item.jmlh === "number") item.jmlh >= 1 ? item.jmlh-- : "";
         if (item.jmlh === 0) {
           CartSet(action.payload);
-
           // noStorage
+        
           if (typeof state.qty === "number") state.qty--;
           state.cartItems = state.cartItems.filter(
             (el) => el.product.id !== action.payload.id

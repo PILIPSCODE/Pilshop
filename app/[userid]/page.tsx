@@ -9,26 +9,32 @@ import getUserC from "@/app/actions/getCurrentUser"
 const page = async({ params }: { params: { userid: string } }) => {
   const YourAcc = await getUserC()
     const getuserp = await getUserParam(params.userid.replace("%20"," "))
-     return (
-   
-       <div className="h-screen font-poppins text-black overflow-y-scroll " data-theme='cupcake'>
-         <div className="flex flex-col w-full items-center ">
-          {YourAcc?.name?
-           <>
-           <Profile YourAcc={YourAcc} params="store"  profileParams={getuserp} />
-            <Nav/>
-            <Content/>
-           </> 
-          :  <>
+    if(getuserp){
+
+      return (
+    
+        <div className="h-screen font-poppins text-black overflow-y-scroll " data-theme='cupcake'>
+          <div className="flex flex-col w-full items-center ">
+           {YourAcc?.name?
+            <>
+            <Profile YourAcc={YourAcc} params="store" content=""  profileParams={getuserp} />
+             <Nav/>
+             <Content/>
+            </> 
+           :  <>
+           
+             <ProfileLoad/>
+           </>
+           }
           
-            <ProfileLoad/>
-          </>
-          }
+          </div>
          
-         </div>
-        
-       </div>
-     );
+        </div>
+      );
+    }
+    else{
+      return <div className="">404 Users Contains {params.userid} not Found</div>
+    }
 };
 
 export default page;

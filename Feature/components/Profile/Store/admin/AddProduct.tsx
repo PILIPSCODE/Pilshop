@@ -12,10 +12,12 @@ const AddProduct = (params: { userCurrent: any }) => {
     Tag: "",
     stock: 0,
     Description: "",
-    userIds: "" || params.userCurrent?.id,
+    OwnerTag: "",
+    userStoreIds: "" || params.userCurrent?.id,
     img: "",
   };
   const [product, setProduct] = useState(productObject);
+  console.log(product)
   type badge = {
     badge: String;
   };
@@ -54,17 +56,21 @@ const AddProduct = (params: { userCurrent: any }) => {
   console.log(product.Tag);
   const handleaddpro = async (form: React.FormEvent<HTMLFormElement>) => {
     form.preventDefault();
-
-    if (product.img !== "" || product.userIds !== "") {
-      const res = await axios.post("/api/product", product);
-      if (res.status === 200) {
-        setProduct(productObject);
-        toast.success("Successfully added");
+    try {
+      
+      if (product.img !== "" || product.userStoreIds !== "") {
+        const res = await axios.post("/api/product", product);
+        if (res.status === 200) {
+          setProduct(productObject);
+          toast.success("Successfully added");
+        } else {
+          toast.error(res.data);
+        }
       } else {
-        toast.error(res.data);
+        return toast.error("invalid Data");
       }
-    } else {
-      return toast.error("invalid Data");
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
@@ -73,34 +79,42 @@ const AddProduct = (params: { userCurrent: any }) => {
       className="w-10/12 max-md:w-full relative flex  mt-10  gap-4 text-black p-20 max-sm:p-8 bg-base-300 rounded-xl max-xl:flex-col"
     >
       <div className="w-4/12 border relative bg-base-200 gap-2 flex justify-center max-xl:justify-start items-center rounded-xl max-xl:border-none ">
-        {product.img !== "" ?
-        <>
-        <Image fill  alt="AddImgProduct" className="max-xl:hidden w-full h-full rounded-xl" src={product.img}/>
-        <h1 className="xl:hidden text-green-400 flex gap-2 font-bold">Image Added <FaCheckCircle size={25}/></h1>
-        </>
-        :
-        <>
-        <CldUploadButton
-          options={{ maxFiles: 1 }}
-          className="w-full h-full flex justify-center items-center gap-2 "
-          onUpload={(cloud: any) =>
-            setProduct({
-              userIds: product.userIds,
-              ProductName: product.ProductName,
-              Tag: product.Tag,
-              stock: product.stock,
-              Price: product.Price,
-              Description: product.Description,
-              img: cloud?.info?.secure_url,
-            })
-          }
-          uploadPreset="duvpylgq"
-        >
-          <FaImage size={25} />
-          <h1 className="max-xl:hidden">Upload Your Image Here</h1>
-        </CldUploadButton>
-        </>
-        }
+        {product.img !== "" ? (
+          <>
+            <Image
+              fill
+              alt="AddImgProduct"
+              className="max-xl:hidden w-full h-full rounded-xl"
+              src={product.img}
+            />
+            <h1 className="xl:hidden text-green-400 flex gap-2 font-bold">
+              Image Added <FaCheckCircle size={25} />
+            </h1>
+          </>
+        ) : (
+          <>
+            <CldUploadButton
+              options={{ maxFiles: 1 }}
+              className="w-full h-full flex justify-center items-center gap-2 "
+              onUpload={(cloud: any) =>
+                setProduct({
+                  OwnerTag: product.OwnerTag,
+                  userStoreIds: product.userStoreIds,
+                  ProductName: product.ProductName,
+                  Tag: product.Tag,
+                  stock: product.stock,
+                  Price: product.Price,
+                  Description: product.Description,
+                  img: cloud?.info?.secure_url,
+                })
+              }
+              uploadPreset="duvpylgq"
+            >
+              <FaImage size={25} />
+              <h1 className="max-xl:hidden">Upload Your Image Here</h1>
+            </CldUploadButton>
+          </>
+        )}
       </div>
 
       <div className="flex flex-col flex-grow items-center gap-4">
@@ -111,7 +125,8 @@ const AddProduct = (params: { userCurrent: any }) => {
             defaultValue={product.ProductName}
             onChange={(e) =>
               setProduct({
-                userIds: product.userIds,
+                OwnerTag: product.OwnerTag,
+                userStoreIds: product.userStoreIds,
                 ProductName: e.target.value,
                 Tag: product.Tag,
                 stock: product.stock,
@@ -133,7 +148,8 @@ const AddProduct = (params: { userCurrent: any }) => {
             defaultValue={product.Price}
             onChange={(e) =>
               setProduct({
-                userIds: product.userIds,
+                OwnerTag: product.OwnerTag,
+                userStoreIds: product.userStoreIds,
                 ProductName: product.ProductName,
                 Tag: product.Tag,
                 stock: product.stock,
@@ -153,7 +169,8 @@ const AddProduct = (params: { userCurrent: any }) => {
             placeholder="0"
             onChange={(e) =>
               setProduct({
-                userIds: product.userIds,
+                OwnerTag: product.OwnerTag,
+                userStoreIds: product.userStoreIds,
                 ProductName: product.ProductName,
                 Tag: product.Tag,
                 stock: Number(e.target.value),
@@ -174,7 +191,8 @@ const AddProduct = (params: { userCurrent: any }) => {
             maxLength={500}
             onChange={(e) =>
               setProduct({
-                userIds: product.userIds,
+                OwnerTag: product.OwnerTag,
+                userStoreIds: product.userStoreIds,
                 ProductName: product.ProductName,
                 Tag: product.Tag,
                 stock: product.stock,
@@ -192,7 +210,8 @@ const AddProduct = (params: { userCurrent: any }) => {
           <select
             onChange={(e) =>
               setProduct({
-                userIds: product.userIds,
+                OwnerTag: product.OwnerTag,
+                userStoreIds: product.userStoreIds,
                 ProductName: product.ProductName,
                 Tag: e.target.value,
                 stock: product.stock,
@@ -211,11 +230,22 @@ const AddProduct = (params: { userCurrent: any }) => {
               </option>
             ))}
           </select>
-          <select
+          <select onChange={(e) =>
+              setProduct({
+                OwnerTag: e.target.value,
+                userStoreIds: product.userStoreIds,
+                ProductName: product.ProductName,
+                Tag: product.Tag,
+                stock: product.stock,
+                Price: product.Price,
+                Description: product.Description,
+                img: product.img,
+              })
+            }
             defaultValue={"Select Your Filter"}
             className="select select-info w-full max-w-xs"
           >
-            <option disabled>Select Your Filter</option>
+            <option disabled>Select Your Category</option>
 
             <option className="flex gap-2">Baju</option>
             <option className="flex gap-2">Celana</option>

@@ -23,34 +23,34 @@ const Drawer = (proops:on) => {
   };
   const badge: User[] = [
     {
-      badge: "Fashion dan Pakaian",
+      badge: "#Fashion dan Pakaian",
     },
     {
-      badge: "Kecantikan dan Perawatan Pribadi",
+      badge: "#Kecantikan dan Perawatan Pribadi",
     },
     {
-      badge: "Rumah Tangga dan Furnitur",
+      badge: "#Rumah Tangga dan Furnitur",
     },
     {
-      badge: "Makanan dan Minuman",
+      badge: "#Makanan dan Minuman",
     },
     {
-      badge: "Olahraga dan Aktivitas Luar Ruangan",
+      badge: "#Olahraga dan Aktivitas Luar Ruangan",
     },
     {
-      badge: "Mainan dan Hiburan",
+      badge: "#Mainan dan Hiburan",
     },
     {
-      badge: "Perlengkapan Bayi dan Anak",
+      badge: "#Perlengkapan Bayi dan Anak",
     },
     {
-      badge: "Perjalanan dan Aksesoris",
+      badge: "#Perjalanan dan Aksesoris",
     },
     {
-      badge: "Kendaraan dan Aksesori",
+      badge: "#Kendaraan dan Aksesori",
     },
     {
-      badge: "Barang Elektronik",
+      badge: "#Barang Elektronik",
     },
   ];
 

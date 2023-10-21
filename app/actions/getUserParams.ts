@@ -9,7 +9,12 @@ export default async function GetCurrentUser(name:string) {
         name: name,
       },
       include:{
-        products:true
+        usersStore:{
+          include:{
+            products:true,
+            ownerTags:true
+          }
+        }
       }
     });
 

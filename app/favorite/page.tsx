@@ -8,9 +8,9 @@ const page = async() => {
 
   return (
     <div>
-       <div className="max-lg:hidden absolute top-3 left-3 flex gap-2 items-center font-poppins text-4xl bg-white p-2">
+       <div className="max-xl:hidden absolute top-3 left-3 flex gap-2 items-center font-poppins text-4xl bg-white p-2">
         <FaBookmark/>
-        <h1>Favorite</h1>
+        <h1 >Favorite</h1>
       </div>
         <Favorite/>
     </div>

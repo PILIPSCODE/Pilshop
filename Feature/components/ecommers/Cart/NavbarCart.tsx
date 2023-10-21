@@ -7,7 +7,7 @@ import { Appdispatch } from "@/redux/store";
 import Link from "next/link";
 import { useRef } from "react";
 import { FaHouseUser } from "react-icons/fa";
-import Pay from "./Pay";
+// import Pay from "./Pay";
 import Drawer from "./Drawer";
 import CartQty from "../Landing/CartQty";
 type ko = {
@@ -30,12 +30,13 @@ const NavbarCart = (props: ko) => {
   const totalslect = useAppSelector(totalIsSelect);
   const price = bagiv >= 1 && totalslect >= 1  ? totalslect - (totalslect / 100) * bagiv :""
   
+  const Pay = useAppSelector((state) => state.CartReducer.pay);
+  console.log(Pay)
 
 
-  const modalRef = useRef<HTMLDialogElement>(null);
 
   const HandleCek = () => {
-     totalslect >= 1 ? dispact(CekOut()) && modalRef.current?modalRef.current.showModal():"" : alert("Pilih terlebih dahulu")
+     totalslect >= 1 ? dispact(CekOut())  : alert("Pilih terlebih dahulu")
   };
   const Voucher: voucer[] = [
     {
@@ -161,7 +162,9 @@ const HandleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
           </button>
         </div>
       </div>
-      <Pay modalRef={modalRef} Subtotal={totalslect} PricePay={price !== "" ? price :totalslect}/>
+      {/* <Pay modalRef={modalRef} Subtotal={totalslect} PricePay={price !== "" ? price :totalslect}/>
+       */}
+       <button className="btn text-white">CheckOut</button>
     </div>
   );
 };
