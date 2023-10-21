@@ -4,8 +4,9 @@ const ProductDy = dynamic(() => import('./Product'))
 import Badge from "./Badge";
 import Hero from "./Hero";
 import dynamic from "next/dynamic";
-import Navbar from "./NavBar";
+
 import RandomStore from "./ForSale";
+import Navbar from "@/Feature/components/ecommers/Landing/NavBar";
 
 type props = {
   session: any;
