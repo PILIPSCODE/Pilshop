@@ -4,7 +4,7 @@ import ProductDy from "./Product"
 import Badge from "./Badge";
 import Hero from "./Hero";
 import RandomStore from "./ForSale";
-import Navbar from "@/Feature/components/ecommers/Landing/NavBar";
+// import Navbar from "@/Feature/components/ecommers/Landing/NavBar";
 
 type props = {
   session: any;
@@ -16,7 +16,7 @@ const Landing = (props: props) => {
 
   return (
     <div  data-theme="pastel" className="justify-center  ">
-      <Navbar session={props.session} />
+      {/* <Navbar session={props.session} /> */}
       <Badge setProfile={setFileterProduct} product={props.products}/>
       <Hero/>
       <RandomStore products={props.products}/>
