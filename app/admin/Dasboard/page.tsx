@@ -10,7 +10,7 @@ const page = async({params}:{params:{userid:string}}) => {
   if(YourAcc)
      return (
         <div className="w-full" >
-          <Admin user={YourAcc.name}/>
+          <Admin user={YourAcc}/>
         </div>
      )
     

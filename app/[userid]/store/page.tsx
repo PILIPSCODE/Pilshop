@@ -7,7 +7,7 @@ import ProductStore from "@/Feature/components/Profile/Store/ProductStore";
 
 const page = async({ params }: { params: { userid: string } }) => {
   const YourAcc = await getUserC()
-  const getuserp = await getUserParam(params.userid.replace("%20"," "))
+  const getuserp = await getUserParam(params.userid.replace(/%20/g," "))
   if(getuserp?.usersStore){
 
     return (
@@ -16,7 +16,7 @@ const page = async({ params }: { params: { userid: string } }) => {
         data-theme="cupcake"
       >
         <div className="flex flex-col w-full items-center ">
-          {YourAcc?.name  ? (
+          {YourAcc? (
             <>
               <Profile
                 YourAcc={YourAcc}
@@ -33,7 +33,7 @@ const page = async({ params }: { params: { userid: string } }) => {
       </div>
     );
   }else{
-    return <div className="">404 {params.userid} haven't store</div>
+    return <div >404 {`${params.userid}`} haven&apos;t store</div>
   }
 };
 

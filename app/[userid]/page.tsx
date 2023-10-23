@@ -8,6 +8,7 @@ import getUserC from "@/app/actions/getCurrentUser"
 
 const page = async({ params }: { params: { userid: string } }) => {
   const YourAcc = await getUserC()
+  console.log(YourAcc)
     const getuserp = await getUserParam(params.userid.replace("%20"," "))
     if(getuserp){
 
@@ -15,7 +16,7 @@ const page = async({ params }: { params: { userid: string } }) => {
     
         <div className="h-screen font-poppins text-black overflow-y-scroll " data-theme='cupcake'>
           <div className="flex flex-col w-full items-center ">
-           {YourAcc?.name?
+           {YourAcc?
             <>
             <Profile YourAcc={YourAcc} params="store" content=""  profileParams={getuserp} />
              <Nav/>

@@ -9,7 +9,7 @@ const page = async({params}:{params:{userid:string}}) => {
 
     <div className='w-full h-screen p-10 max-sm:p-3 max-sm:pt-7 '>
      
-        <ManageProduct params={params.userid} products={product?.usersStore}/>
+        <ManageProduct params={params.userid} products={product}/>
     </div>
   )
 }

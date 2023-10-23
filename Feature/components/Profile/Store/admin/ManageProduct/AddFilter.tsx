@@ -51,7 +51,7 @@ const AddFilter = (props:{userStore:any}) => {
               <input placeholder="Add Category" required className="w-full px-2 rounded-md" onChange={(e) => setAdd({email:add.email,UserStoreids:add.UserStoreids,tag:e.target.value})} />
               <button className="bg-info p-1 rounded-lg">add</button>
             </form>
-            {props.userStore.ownerTags.map((e:any,index:any) => (
+            {props.userStore.usersStore.ownerTags.map((e:any,index:any) => (
 
             <div key={index} className=" my-1 form-control flex gap-2 flex-row">
               <input

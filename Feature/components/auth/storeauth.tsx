@@ -10,7 +10,7 @@ import axios from "axios";
 
 const Storeauth = (props:{acc:any}) => {
   const change = useRef<HTMLHeadingElement>(null);
-  const [userReq, setuserReq] = useState({name:"",email:props.acc.email,bio:`Welcome To ${props.acc.name} Store`,link:`https://${props.acc.name}.com`});
+  const [userReq, setuserReq] = useState({name:"",email:props.acc?.email,bio:`Welcome To ${props.acc?.name} Store`,link:`https://${props.acc?.name}.com`});
   const router = useRouter()
 
 

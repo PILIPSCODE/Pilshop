@@ -16,7 +16,7 @@ const Admin = (params:{user:any}) => {
           <p>DashBoard</p>
         </div>
         <div className="text-xl max-md:text-base">
-          <h1>Welcome {params.user}</h1>
+          <h1>Welcome {params.user.name}</h1>
         </div>
       </div>
       <TopCard />

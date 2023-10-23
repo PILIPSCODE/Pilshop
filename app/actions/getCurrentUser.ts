@@ -5,7 +5,7 @@ import prisma from "@/app/libs/prismadb";
 export default async function GetCurrentUser() {
   try {
     const sesions = await getSS();
-    if(sesions === null) return new NextResponse('Unathorize',{status:401})
+    if(sesions === null) return null
  
     const userCurrent = await prisma.user.findFirst({
       where: {
@@ -20,9 +20,9 @@ export default async function GetCurrentUser() {
         }
       }
     });
-
+   
     return userCurrent;
   } catch (error) {
-    console.log(error)
+    return null
   }
 }

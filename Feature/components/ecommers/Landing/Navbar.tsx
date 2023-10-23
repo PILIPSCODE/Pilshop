@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { FaChartBar, FaHeart, FaSearch, FaSearchPlus } from "react-icons/fa";
+import { FaHeart} from "react-icons/fa";
 import CartQty from "./CartQty";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
@@ -10,6 +10,7 @@ import React from "react";
 type props = {
   session: any;
 };
+
 const Navbar = (props: props) => {
   const [sideprofile, SetSideProfile] = useState(false);
   return (
@@ -41,7 +42,7 @@ const Navbar = (props: props) => {
           </Link>
       
         </div>
-        {props.session.name !== undefined ? (
+        {props.session !== null ? (
           <div className="relative ">
             <label
               tabIndex={1}

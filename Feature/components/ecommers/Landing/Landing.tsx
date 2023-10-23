@@ -1,10 +1,8 @@
 "use client";
 import { useState } from "react";
-const ProductDy = dynamic(() => import('./Product'))
+import ProductDy from "./Product"
 import Badge from "./Badge";
 import Hero from "./Hero";
-import dynamic from "next/dynamic";
-
 import RandomStore from "./ForSale";
 import Navbar from "@/Feature/components/ecommers/Landing/NavBar";
 
@@ -13,7 +11,6 @@ type props = {
   products: any;
 };
 const Landing = (props: props) => {
-
   const [filterProduct,setFileterProduct] = useState("Untuk Anda")
 
 

@@ -7,7 +7,7 @@ const page = async({params}:{params:{actions:string}}) => {
     if(params.actions === "addProduct"){
 
         return (
-          <div className='flex justify-center'><AddProduct userCurrent={getuserCur?.usersStore}/></div>
+          <div className='flex justify-center'><AddProduct userCurrent={getuserCur}/></div>
         )
     }
 }

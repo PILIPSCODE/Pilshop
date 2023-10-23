@@ -18,7 +18,7 @@ import Search from "./Search";
 import AddFilter from "./ManageProduct/AddFilter";
 const ManageProduct = (params: { params: string; products: any }) => {
 
-
+console.log(params.products)
   const router = useRouter();
   const handleDelete = async (id: string) => {
     const res = await axios.delete(`/api/product/${id}`);
@@ -35,7 +35,7 @@ const ManageProduct = (params: { params: string; products: any }) => {
       <Search/>
       <AddFilter userStore={params.products}/>
     <div className="font-popins bg-base-300 m relative  p-2 h-[80vh] rounded-lg">
-      <div className={`grid grid-cols-4  max-md:grid-cols-2 gap-1  px-2  text-gray-800  ${params.products.products?.length >= 1? "" : "hidden"}`}>
+      <div className={`grid grid-cols-4  max-md:grid-cols-2 gap-1  px-2  text-gray-800  ${params.products.usersStore.products?.length >= 1? "" : "hidden"}`}>
         <div className="flex justify-start py-2 mx-3  items-center gap-1  ">
           <PiBeerBottle size={25} />
           <h1>Product</h1>
@@ -54,8 +54,8 @@ const ManageProduct = (params: { params: string; products: any }) => {
         </div>
       </div> 
 
-        {params.products.products?.length > 0 ?
-      params.products.products.map((product: any, index: any) => (
+        {params.products.usersStore.products?.length > 0 ?
+      params.products.usersStore.products.map((product: any, index: any) => (
             <div
               key={index}
               className="grid grid-cols-4 relative text-gray-800 font-bold max-md:grid-cols-2 gap-1 bg-base-200 rounded-lg  my-2  "
@@ -73,7 +73,7 @@ const ManageProduct = (params: { params: string; products: any }) => {
                 <h1>{product.stock}</h1>
               </div>
               <div className="flex justify-end py-2 items-center gap-2 ">
-                <EditProduct OwnerTag={params.products.ownerTags}  product={product} />
+                <EditProduct OwnerTag={params.products.usersStore.ownerTags}  product={product} />
                 <div
                   className="bg-base-300 p-2 rounded-lg"
                   onClick={() => handleDelete(product.id)}
