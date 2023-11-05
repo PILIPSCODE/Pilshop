@@ -28,16 +28,16 @@ const ProductinCart = () => {
     dispact(ifCek(cek));
   };
   return (
-    <div>
+    <div >
       <NavbarCart select={selectall} setSelect={setSellectAll} />
-      <div className="flex flex-col items-center pt-10   py-32">
+      <div className="flex flex-col items-center pt-10  py-32">
         {inCart.length === 0 ? (
           <CartEmpty text={'Cart Empty no items in here'}/>
         ) : (
           inCart.map((el, index) => (
             <div
               data-theme="light"
-              className="w-7/12 bg-base-200 conttainer-cart relative z-0 text-black flex rounded-lg my-2 h-28 max-lg:w-10/12 ax-sm:w-11/12 max-[490px]:flex max-[490px]:flex-col max-[490px]:h-auto"
+              className="w-7/12 bg-base-200 conttainer-cart relative z-0 text-black shadow-md flex rounded-lg my-2 h-28 max-lg:w-10/12 ax-sm:w-11/12 max-[490px]:flex max-[490px]:flex-col max-[490px]:h-auto"
               key={index}
             >
               <div className="flex items-center ">

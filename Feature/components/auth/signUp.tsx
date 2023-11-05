@@ -61,12 +61,12 @@ const SignUp = () => {
   };
   return (
     <div className="h-screen flex justify-center items-center text-white font-poppins">
-      <div className="w-10/12 h-5/6  flex lg:flex-row-reverse  rounded-2xl gap-1  max-lg:flex-col max-lg:max-w-sm max-lg:h-screen max-sm:w-full   ">
+      <div className="w-10/12 h-5/6  flex  rounded-2xl gap-1  max-lg:flex-col max-lg:max-w-sm max-lg:h-screen max-sm:w-full   ">
         <div className="flex justify-center h-full max-lg:h-auto max-sm:flex-grow  items-center px-20 bg-log rounded-2xl ">
           <Bird wings={wings} change={change} showpasss={showpass}  />
         </div>
-        <div className="flex max-lg:justify-center p-20 items-center  rounded-2xl max-lg:p-4 lg:justify-end   relative max-sm:flex-grow-0 flex-grow bg-gradient-to-b from-purple-500 to-purple-900  ">
-          <form onSubmit={(e) => handleSumbit(e)} className=" flex flex-col lg:text-end  gap-4 max-lg:w-full">
+        <div className="flex justify-center p-20 items-center  rounded-2xl max-lg:p-4 relative max-sm:flex-grow-0 flex-grow bg-gradient-to-b from-purple-500 to-blue-300  ">
+          <form onSubmit={(e) => handleSumbit(e)} className=" flex flex-col  gap-4 max-lg:w-full">
             <Image
             alt="Leaves"
               src={Leaves}
@@ -138,7 +138,7 @@ const SignUp = () => {
             <button type="submit" className="btn relative mt-2 max-lg:mx-3 ">Sign Up</button>
             <h1 className="relative text-center ">
               Have an Account{" "}
-              <Link href={"/auth/SignIn"} className="underline">
+              <Link href={"/user/signin"} className="underline">
                 {" "}
                 SignIn{" "}
               </Link>{" "}

@@ -22,34 +22,34 @@ const RandomStore = (props: props) => {
     Details === e ? setDetails("") : setDetails(`${e}`);
   };
   return (
-    <div className="w-11/12 m-auto font-poppins forsale  my-9 rounded-lg">
-      <div className="flex gap-2 items-center justify-center px-4 bg-blue-300">
+    <div className="w-full m-auto font-poppins forsale    my-9 rounded-lg">
+      <div className="flex gap-2  items-center mx-2 justify-center px-4 bg-blue-300">
         <HiReceiptPercent size={25} />
         <h1 className=" py-4 text-2xl max-md:text-base rounded-t-lg w-full font-bold ">
           Product With Discount
         </h1>
       </div>
-      <div className="w-full p-3  h-96 max-sm:h-72 ">
+      <div className="w-full py-3  h-96 max-sm:h-72 ">
         <Swiper
           modules={[Navigation, A11y, Autoplay]}
-          spaceBetween={20}
+          spaceBetween={10}
           slidesPerView={2}
           navigation={true}
           breakpoints={{
             1280: {
-              spaceBetween: 20,
+              spaceBetween: 10,
               slidesPerView: 5,
             },
             990: {
-              spaceBetween: 20,
+              spaceBetween: 10,
               slidesPerView: 4,
             },
             700: {
-              spaceBetween: 20,
+              spaceBetween: 10,
               slidesPerView: 3,
             },
             400: {
-              spaceBetween: 20,
+              spaceBetween: 10,
               slidesPerView: 2,
             },
           }}
@@ -87,7 +87,8 @@ const RandomStore = (props: props) => {
                     <h1 className="  md:text-base max-md:text-sm max-sm:text-xs ok">
                       {e.ProductName}
                     </h1>
-                    <div className="flex gap-3">
+                   
+                    <div className="flex items-center gap-3">
                      
                         <AddtoCart AddQty={e} />
                      
@@ -98,6 +99,10 @@ const RandomStore = (props: props) => {
                         {Number(e.Rate)} ⭐ | Selled 10 k
                       </h1>
                     </div>
+                    <h1 className=" gap-2 flex items-center  md:text-base text-xs ok">
+                    <span>{Number(e.Price)} $</span>
+                    <span className="line-through text-red-500 md:text-sm text-xs ">{Number(e.Price)} $</span>
+                  </h1>
                   </div>
                 </div>
               </div>
@@ -106,16 +111,8 @@ const RandomStore = (props: props) => {
                 onClick={() => HandleClick(e.id)}
                 className={`w-full text-white flex flex-col ${
                   Details === e.id ? "opacity-0" : "opacity-100"
-                }  h-full duration-300 absolute bg-black/50 justify-between`}
+                }  h-full duration-300 absolute bg-black/50 hover:cursor-pointer justify-between`}
               >
-                <div className="flex mt-3 flex-col items-start">
-                  <h1 className="px-2  bg-black md:text-lg text-xs ok">
-                    {Number(e.Price)} $
-                  </h1>
-                <div className="flex justify-end w-full">
-                  <h1 className="bg-white text-red-600">Discount 30%</h1>
-                </div>
-                </div>
               </div>
             </div>
             </SwiperSlide>

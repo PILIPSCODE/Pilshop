@@ -1,13 +1,12 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState,useRef} from "react";
 import { CekOut, SearchProductCart,  ifCek, totalIsSelect } from "@/redux/features/cart-Slice";
 import { useAppSelector } from "@/redux/store";
 import { AiFillCaretUp } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { Appdispatch } from "@/redux/store";
 import Link from "next/link";
-import { useRef } from "react";
 import { FaHouseUser } from "react-icons/fa";
-// import Pay from "./Pay";
+import PayModal from "./Pay";
 import Drawer from "./Drawer";
 import CartQty from "../Landing/CartQty";
 type ko = {
@@ -22,39 +21,23 @@ type voucer = {
 };
 
 const NavbarCart = (props: ko) => {
+
   const [sl, setsl] = useState(false);
-  const [slvoucher, setSlvoucher] = useState("default");
   const [search, setSearch] = useState('');
   const [bagiv, setbagiv] = useState(0);
   const dispact = useDispatch<Appdispatch>();
   const totalslect = useAppSelector(totalIsSelect);
   const price = bagiv >= 1 && totalslect >= 1  ? totalslect - (totalslect / 100) * bagiv :""
   
+  const modalRef = useRef<HTMLDialogElement>(null)
   const Pay = useAppSelector((state) => state.CartReducer.pay);
-  console.log(Pay)
 
 
 
   const HandleCek = () => {
      totalslect >= 1 ? dispact(CekOut())  : alert("Pilih terlebih dahulu")
+     modalRef.current?.show()
   };
-  const Voucher: voucer[] = [
-    {
-      img: "/Diskon1.png",
-      name: "Diskon1",
-      Diskon: 10,
-    },
-    {
-      img: "/Diskon2.png",
-      name: "Diskon2",
-      Diskon: 20,
-    },
-    {
-      img: "/Diskon3.png",
-      name: "Diskon3",
-      Diskon: 30,
-    },
-  ];
 
   const handleClick = () => {
     props.setSelect(!props.select);
@@ -96,14 +79,8 @@ const HandleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
       </div>
       <div className="w-7/12  bg-base-200 conttainer-cart fixed z-10 bottom-0 flex  justify-between  h-28 max-lg:w-10/12 max-sm:w-11/12 shadow-lg shadow-slate-700">
         <div className="flex items-center mx-3">
-          <div data-theme="dark" className="w-60 h-15  max-[475px]:w-36 max-[475px]:h-11  rounded-md relative  flex items-center justify-end">
-            {slvoucher === "default" ? (
-              <h1 className="text-2xl w-full text-center max-[567px]:text-sm  max-[490px]:text-base">
-                Select Your Voucher
-              </h1>
-            ) : (
-              slvoucher === 'default'?<h1 className=" ">Select Your Voucher</h1>: <img src={slvoucher} className="max-w-full  h-auto rounded-lg " />
-            )}
+          <div className="w-60 h-15  max-[475px]:w-36 max-[475px]:h-11  rounded-md relative  flex items-center justify-end">
+          <input onChange={(e) => {e.target.value === "wism30%"? setbagiv(30):(e.target.value === "pilshop"? setbagiv(40):(e.target.value === "wimerce"?setbagiv(20):setbagiv(0)))}} type="text" className="input-group-lg input-info w-full px-2 mt-3" placeholder="input Coupon here" />
             <div
               onClick={() => {
                 totalslect >=1 ?   setsl(!sl) :alert('pilih terlebih dahulu')
@@ -111,30 +88,9 @@ const HandleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
               }}
               className="absolute mx-2 text-gray-600 bg-slate-100/60"
             >
-              <AiFillCaretUp
-                className={`${sl ? "" : "rotate-180"} duration-300`}
-              />
             </div>
             <div className="absolute  right-1 w-40 -translate-y-20  ">
-              <div className="flex flex-col-reverse">
-                <div data-theme="dark" className={`${sl ? "  flex flex-col gap-2" : "hidden"} `}>
-                  {Voucher.map((e, index) => (
-                    <div key={index}>
-
-                      <img
-                        
-                        className="border rounded-md text-white"
-                        alt="Remove"
-                        onClick={() => {
-                          setSlvoucher(`${e.img}`), setbagiv(e.Diskon);
-                        }}
-                        src={`${e.img}`}
-                      />
-                    </div>
-                  ))}
-                  <h1 onClick={() =>  setSlvoucher(`default`)} >Remove</h1>
-                </div>
-              </div>
+           
             </div>
           </div>
         </div>
@@ -155,15 +111,15 @@ const HandleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
                 ? { background: "#10F5CC" }
                 : { background: "rgb(71 85 105 /1)" }
             }
-            className=" btn m-2 text-black hover:text-white hover:bg-slate-600"
+            className=" btn m-2 mt-4 text-black hover:text-white hover:bg-slate-600"
             onClick={HandleCek}
           >
             CheckOut
           </button>
         </div>
       </div>
-      {/* <Pay modalRef={modalRef} Subtotal={totalslect} PricePay={price !== "" ? price :totalslect}/>
-       */}
+      <PayModal modalRef={modalRef} Subtotal={totalslect} PricePay={price !== "" ? price :totalslect}/>
+      
        <button className="btn text-white">CheckOut</button>
     </div>
   );

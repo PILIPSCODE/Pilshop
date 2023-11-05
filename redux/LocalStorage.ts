@@ -1,4 +1,4 @@
-import { getCookie, setCookie } from "cookies-next";
+import { getCookie, setCookie} from "cookies-next";
 import { Carti } from "./interface/Cart";
 
 export const LocalStorage = () => {
@@ -44,3 +44,44 @@ export const CartSet = (body: Carti) => {
     return favorite;
   }
 };
+
+
+
+
+export const updateIncrement = async (id:string) => {
+  const getcookie = getCookie("CartItems");
+  const datacart = JSON.parse(String(getcookie));
+
+   const findid = await datacart.find((el:any) => el.product.id === id)
+   if(findid.jmlh <= findid.product.stock) {
+     let product = {
+      jmlh:findid.jmlh +1,
+      product:findid.product
+     }
+     const did = await datacart.filter((el:any) => el.product.id !== id)
+     did.push(product)
+     setCookie("CartItems", []);
+     setCookie("CartItems", JSON.stringify(did));
+   }
+   
+}
+
+export const updatedecrement = async (id:string) => {
+  const getcookie = getCookie("CartItems");
+  const datacart = JSON.parse(String(getcookie));
+
+   const findid = await datacart.find((el:any) => el.product.id === id)
+   console.log(findid.jmlh);
+   if(findid.jmlh > 1){
+     let product = {
+      jmlh:findid.jmlh -1,
+      product:findid.product
+     }
+     console.log(product);
+     const did = await datacart.filter((el:any) => el.product.id !== id)
+     did.push(product)
+     setCookie("CartItems", []);
+     setCookie("CartItems", JSON.stringify(did));
+   }
+   
+}

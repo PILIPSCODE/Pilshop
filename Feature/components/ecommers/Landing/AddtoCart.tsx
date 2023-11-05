@@ -37,7 +37,7 @@ const [qty,setQty] = useState<Number>(0)
     );
   return (
     <>
-     <Qty  qty={qty} product={props.AddQty}/>
+     <Qty   qty={qty} product={props.AddQty}/>
     </>
   );
 };

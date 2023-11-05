@@ -72,7 +72,7 @@ const Login = () => {
         <div className="flex justify-center h-full max-lg:h-auto max-sm:flex-grow  items-center px-20 bg-log rounded-2xl ">
           <Bird wings={wings} change={change} showpasss={showpass} />
         </div>
-        <div className="flex max-lg:justify-center p-20 items-center  rounded-2xl max-lg:p-4   relative max-sm:flex-grow-0 flex-grow bg-gradient-to-b from-slate-500 to-slate-900  ">
+        <div className="flex justify-center p-20 items-center   rounded-2xl max-lg:p-4   relative max-sm:flex-grow-0 flex-grow bg-gradient-to-b from-blue-300 to-slate-900  ">
           <form onSubmit={(e) => handleSubmit(e)} className=" flex flex-col gap-4 max-lg:w-full">
             <Image
               alt="daun"
@@ -115,7 +115,7 @@ const Login = () => {
             <button className="btn relative mt-2 max-lg:mx-3 ">Sign in</button>
             <h1 className="relative text-center ">
               New in here Lest-go{" "}
-              <Link href={"/auth/SignUp"} className="underline">
+              <Link href={"/user/signup"} className="underline">
                 {" "}
                 SignUp{" "}
               </Link>{" "}

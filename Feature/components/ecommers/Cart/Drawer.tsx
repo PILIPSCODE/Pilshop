@@ -75,12 +75,12 @@ const Drawer = (proops:on) => {
             <FaFilter size={25} />
           </label>
         </div>
-        <div className="drawer-side z-50 items-center ">
+        <div className="drawer-side  z-50 items-center ">
           <label
             htmlFor="my-drawer-4"
             className="drawer-overlay bg-transparent"
           ></label>
-          <div className="menu p-4 w-80  rounded-2xl mx-2 bg-base-200 text-base-content flex flex-col gap-3">
+          <div className="menu p-4 translate-x-9 w-80  rounded-2xl mx-2 bg-base-200 text-base-content flex flex-col gap-3">
             <h1 className="text-3xl font-bold">Filter</h1>
             <form onSubmit={(e) => handleSubmit(e, "max")}>
               <h1>MaxPrice:</h1>

@@ -23,7 +23,7 @@ const Qty = (props: ProductFilt) => {
   };
 
   return (
-    <div className={`opacity-100 border px-1 border-black text-xl max-sm:text-sm  flex rounded-md gap-5 items-center `}>
+    <div className={`opacity-100 border px-1 border-black text-xl max-sm:text-xs  flex rounded-md gap-5 items-center `}>
       <div
         onClick={() => handleMin(props.product)}
         className=""

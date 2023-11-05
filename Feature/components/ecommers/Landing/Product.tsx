@@ -9,12 +9,15 @@ const BuyNow = dynamic(() => import("./BuyNow"), { ssr: false });
 
 import LikesProduct from "./LikesProduct";
 import Drawer from "../Cart/Drawer";
+import { title } from "process";
 type ProductFilt = {
   filterproduct: String;
   product: any;
+  title:string
 };
 const Product = (props: ProductFilt) => {
   const [Details, setDetails] = useState("");
+  const [Title, setTitle] = useState("");
   const HandleClick = (e: String) => {
     Details === e ? setDetails("") : setDetails(`${e}`);
   };
@@ -22,25 +25,25 @@ const Product = (props: ProductFilt) => {
   const limitProduct15 = props.product.slice(0, 15);
 
   return (
-    <div className="w-11/12 mx-auto gap-6 font-poppins mt-3 mb-6 ">
-      <div className="bg-blue-300 relative px-4 flex gap-3 items-center justify-between">
+    <div className="w-full mx-auto gap-6 font-poppins mt-3 mb-6 ">
+      <div className="bg-blue-300 relative px-4 flex mx-2 gap-3 items-center justify-between">
         <h1 className=" py-4 text-2xl max-md:text-base rounded-t-lg w-full  font-bold ">
-          Product Recommend For You
+          {props.title}
         </h1>
         <Drawer in={""} />
       </div>
-      <div className="grid-cols-3 w-full p-3 grid max-[583px]:grid-cols-2 md:grid-cols-3   max-lg:grid-cols-3 min-[1415px]:grid-cols-5 min-[1155px]:grid-cols-4 gap-3 md:gap-5 ">
+      <div className="grid-cols-3 w-full py-3 px-2 grid max-[583px]:grid-cols-2 md:grid-cols-3   max-lg:grid-cols-3 min-[1415px]:grid-cols-5 min-[1155px]:grid-cols-4 gap-3 md:gap-5 ">
         {limitProduct15
           .filter((e: any) => {
-            console.log(e);
-            if (e.Tag === props.filterproduct) {
+            if (e.Tag.replace(/ /g,"") === props.filterproduct) {
               return e;
             } else if (props.filterproduct === "Untuk Anda") {
               return e;
             }
           })
-          .map((e: any, index: any) => (
-            <div
+          .map((e: any, index: any) => {
+            return(
+              <div
               key={index}
              
               className="flex flex-col w-full overflow-hidden border  border-black  relative font-poppins"
@@ -59,7 +62,7 @@ const Product = (props: ProductFilt) => {
                   />
                 </div>
              
-                <div className="absolute top-2 right-3  z-50">
+                <div className="absolute top-2 right-3  z-40">
                   <LikesProduct liked={e.id} product={e} />
                 </div>
                 <div className=" bg-white relative h-full z-40">
@@ -78,6 +81,9 @@ const Product = (props: ProductFilt) => {
                         {Number(e.Rate)} ⭐ | Selled 10 k
                       </h1>
                     </div>
+                    <h1 className="md:text-base text-xs ok">
+                    {Number(e.Price)} $
+                  </h1>
                   </div>
                 </div>
               </div>
@@ -88,14 +94,10 @@ const Product = (props: ProductFilt) => {
                   Details === e.id ? "opacity-0" : "opacity-100"
                 }  h-full duration-300 absolute bg-black/50 justify-between`}
               >
-                <div className="flex mt-3 ">
-                  <h1 className="px-2  bg-black md:text-lg text-xs ok">
-                    {Number(e.Price)} $
-                  </h1>
-                </div>
               </div>
             </div>
-          ))}
+            )
+          })}
       </div>
     </div>
   );

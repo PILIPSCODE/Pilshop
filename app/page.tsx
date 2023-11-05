@@ -12,6 +12,7 @@ const page = async() => {
   const product = await GetProduct()
   const session = await getSS()
 
+  
   return (
     <>
     <div  className='overflow-x-hidden  h-screen' data-theme="pastel">

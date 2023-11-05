@@ -188,6 +188,10 @@ html{
 .swiper{
   padding: 0 10px !important;
 }
+.full{
+  height: 100vh !important;
+  width: 100wh !important;
+}
 
 
 @media (max-width:400px) {

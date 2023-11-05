@@ -10,7 +10,7 @@ import {
 } from "../interface/Cart";
 import { RootState } from "../store";
 import { getCookie, setCookie } from "cookies-next";
-import {  CartSet } from "../LocalStorage";
+import {  CartSet, updatedecrement, updateIncrement } from "../LocalStorage";
 export interface CartState {
   cartItems: CartItems[];
   Wishlist: Wishlist[];
@@ -58,6 +58,7 @@ export const Cart = createSlice({
           item.jmlh <= Number(item.product.stock) - 1
         ) {
           item.jmlh++;
+          updateIncrement(action.payload.id)
         } else {
           console.log("stock habis");
         }
@@ -74,7 +75,7 @@ export const Cart = createSlice({
       );
 
       if (item) {
-        if (typeof item.jmlh === "number") item.jmlh >= 1 ? item.jmlh-- : "";
+        if (typeof item.jmlh === "number") item.jmlh >= 1 ? (item.jmlh--,updatedecrement(action.payload.id)): "";
         if (item.jmlh === 0) {
           CartSet(action.payload);
           // noStorage

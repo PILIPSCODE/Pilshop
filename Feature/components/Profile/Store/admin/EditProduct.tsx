@@ -138,7 +138,7 @@ const EditProduct = (props:{product:any,OwnerTag:OwnerTag[]}) => {
               <option disabled>Select Badge</option>
               {badge.map((el, index) => (
                 <option className="flex gap-2"  key={index}>
-                  #{el.badge}
+                  {el.badge}
                 </option>
               ))}
             </select>

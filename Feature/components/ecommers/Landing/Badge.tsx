@@ -12,9 +12,9 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css/navigation';
 import "swiper/css";
 import { Navigation } from 'swiper'
+import Link from 'next/link'
 type props ={
-    product:any
-    setProfile:React.Dispatch<SetStateAction<string>>
+    setProfile:string
 }
 
 const Badge = (props:props) => {
@@ -76,7 +76,7 @@ const Badge = (props:props) => {
        
   return (
     <>
-    <div data-theme="pastel" className='category mx-auto flex items-center  py-4  '>
+    <div data-theme="pastel" className='category mx-auto flex pt-28 items-center  py-4  '>
     <Swiper 
       spaceBetween={10}
       slidesPerView={7}
@@ -98,12 +98,14 @@ const Badge = (props:props) => {
       }}
     className='flex gap-4  justify-between  items-stretch h-12 max-lg:h-auto w-11/12  mx-10 '>
         {badge.map((el,index) => (
-        <SwiperSlide key={index} className='text-center h-full '  onClick={() => {props.setProfile(`${el.badge}`)}}>
+            <SwiperSlide key={index} className='text-center h-full '>
+            <Link href={`${el.badge !== "Untuk Anda"?`/category/${el.badge.replace(/ /g,"").replace(/%2C/g, ",")}`:"/"}`}>
             <div className="rounded-md flex flex-col h-full  justify-center items-center  mx-auto bg-blue-300  text-slate-700">
 
             <el.icons className='py-1 lg:hidden text-4xl'/>
             <div className='max-lg:hidden whitespace-nowrap text-sm'>{el.badge}</div>
             </div>
+            </Link>
         </SwiperSlide>
         ))}
     </Swiper>
