@@ -39,7 +39,7 @@ const DataCart = getCookie("CartItems");
 DataCart ? "" : setCookie("CartItems", []);
 const data = DataCart ? JSON.parse(String(DataCart)) : "";
 if (DataCart) {
-  initialState.cartItems = data;
+  initialState.cartItems = data.reverse();
   initialState.qty = data.length;
 }
 

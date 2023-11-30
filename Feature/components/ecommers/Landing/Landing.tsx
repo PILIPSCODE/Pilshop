@@ -13,6 +13,17 @@ type props = {
 };
 const Landing = (props: props) => {
 
+  useEffect(() => {
+    const handleScroll = () => {
+      let scY = window.scrollY;
+      console.log(scY)
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
 
   return (

@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { FaHeart} from "react-icons/fa";
+import { FaBell, FaHeart} from "react-icons/fa";
 import CartQty from "./CartQty";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 
 import React from "react";
+import Notification from "./Notification";
 type props = {
   session: any;
 };
@@ -16,18 +17,7 @@ const Navbar = (props: props) => {
   const navbarref = useRef<HTMLDivElement>(null)
   const [onscroll, setOnScroll] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      let scY = window.scrollY;
-      setOnScroll(scY > 300);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
+    console.log(props.session)
   return (
     <div ref={navbarref} className={`flex justify-center fixed z-50 w-full bg-white ${onscroll?"bg-slate-700":""}`}>
 
@@ -45,6 +35,10 @@ const Navbar = (props: props) => {
       </div>
       <div className="flex-none flex lg:gap-3 items-center">
         <div className="flex gap-2 mr-2">
+
+
+        <Notification/>
+       
         <Link href="/favorite" className="flex gap-1 text-black">
           <FaHeart size={25} />
           <h1 className="max-lg:hidden">Favorite</h1>
@@ -89,7 +83,7 @@ const Navbar = (props: props) => {
             >
               <li>
                 <Link
-                  href={`/${props.session?.name}`}
+                  href={`/${props.session?.name.replace(" ","")}`}
                   className="justify-between"
                   shallow
                 >
@@ -98,9 +92,6 @@ const Navbar = (props: props) => {
               </li>
               <li className={`${props.session.usersStore ? "" : "hidden"}`}>
                 <Link href={`/admin/Dasboard`}>Dashboard</Link>
-              </li>
-              <li className={`${props.session.usersStore ? "" : "hidden"}`}>
-                <Link href={`/`}>Orders</Link>
               </li>
               <li>
                 <a>Settings</a>

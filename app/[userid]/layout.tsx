@@ -7,7 +7,7 @@ export default function ProfileLayout({children,params}: {children: React.ReactN
     <div className="h-screen flex overflow-x-hidden" data-theme="cupcake">
         <div className="w-full">
             <div className="fixed bottom-4 left-4">
-             <Link href={'/Cart'}><CartQty/></Link>
+             <Link href={'/cart'}><CartQty/></Link>
             </div>
             {children}
         </div>

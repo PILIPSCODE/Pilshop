@@ -8,7 +8,6 @@ import getUserC from "@/app/actions/getCurrentUser"
 
 const page = async({ params }: { params: { userid: string } }) => {
   const YourAcc = await getUserC()
-  console.log(YourAcc)
     const getuserp = await getUserParam(params.userid.replace("%20"," "))
     if(getuserp){
 

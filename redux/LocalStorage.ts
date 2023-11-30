@@ -85,3 +85,10 @@ export const updatedecrement = async (id:string) => {
    }
    
 }
+
+export const DeleteProductinCart = async(body:any) => {
+  const getcookie = getCookie("CartItems");
+  const datacart = JSON.parse(String(getcookie));
+  const updateCart = await datacart.filter((el:any) => !body.some((bodyItems:any) => bodyItems.product.id === el.product.id))
+  setCookie("CartItems", JSON.stringify(updateCart));
+}

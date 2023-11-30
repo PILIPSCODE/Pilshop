@@ -14,6 +14,10 @@ export const POST = async (req: Request, res: NextResponse) => {
     if (password !== repeatPassword) {
       return new NextResponse("Passwords do not match", { status: 400 });
     }
+    const cekSpace = name.includes(" ");
+    if(cekSpace){
+      return new NextResponse("Remove the Space", { status: 400});
+    }
 
     const hashedPassword = await bcrypt.hash(password, 12);
 

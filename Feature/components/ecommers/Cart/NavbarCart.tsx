@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState,useRef} from "react";
 import { CekOut, SearchProductCart,  ifCek, totalIsSelect } from "@/redux/features/cart-Slice";
 import { useAppSelector } from "@/redux/store";
-import { AiFillCaretUp } from "react-icons/ai";
+import axios from "axios";
 import { useDispatch } from "react-redux";
 import { Appdispatch } from "@/redux/store";
 import Link from "next/link";
@@ -11,32 +11,38 @@ import Drawer from "./Drawer";
 import CartQty from "../Landing/CartQty";
 type ko = {
   select: Boolean;
+  email:any;
   setSelect: Dispatch<SetStateAction<boolean>>;
+  orderId:string,
 };
 
-type voucer = {
-  img: String;
-  name: String;
-  Diskon: number;
-};
 
 const NavbarCart = (props: ko) => {
 
   const [sl, setsl] = useState(false);
   const [search, setSearch] = useState('');
+  const [orderid,setOrderids] = useState('');
   const [bagiv, setbagiv] = useState(0);
   const dispact = useDispatch<Appdispatch>();
   const totalslect = useAppSelector(totalIsSelect);
-  const price = bagiv >= 1 && totalslect >= 1  ? totalslect - (totalslect / 100) * bagiv :""
+  const coupun = bagiv >= 1 && totalslect >= 1  ? totalslect - (totalslect / 100) * bagiv :""
+  const price = Math.floor(Number(coupun))
   
   const modalRef = useRef<HTMLDialogElement>(null)
   const Pay = useAppSelector((state) => state.CartReducer.pay);
 
 
 
-  const HandleCek = () => {
-     totalslect >= 1 ? dispact(CekOut())  : alert("Pilih terlebih dahulu")
-     modalRef.current?.show()
+  const HandleCek = async() => {
+     if(totalslect >= 1 ) {
+      dispact(CekOut()) 
+      modalRef.current?.show()
+      const res = await axios.post("/api/orderidsgenerate",{email:props.email})
+      setOrderids(res.data.id)
+      }
+      else{
+        alert("Pilih terlebih dahulu")
+      } 
   };
 
   const handleClick = () => {
@@ -118,7 +124,7 @@ const HandleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
           </button>
         </div>
       </div>
-      <PayModal modalRef={modalRef} Subtotal={totalslect} PricePay={price !== "" ? price :totalslect}/>
+      <PayModal orderId={orderid? orderid :props.orderId} modalRef={modalRef} Subtotal={totalslect} PricePay={coupun !== "" ? price :totalslect}/>
       
        <button className="btn text-white">CheckOut</button>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 import Qty from "@/Feature/components/ecommers/Landing/Qty";
-import { ifCek } from "@/redux/features/cart-Slice";
+import { ifCek, increment } from "@/redux/features/cart-Slice";
 import { Carti, CartItems } from "@/redux/interface/Cart";
 import { useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
@@ -10,11 +10,16 @@ import { useState, useEffect } from "react";
 import NavbarCart from "./NavbarCart";
 import CartEmpty from "../Nothing/CartEmpty";
 
-const ProductinCart = () => {
+type Payment ={
+  email:any,
+  orderId:string,
+}
+const ProductinCart = (props:Payment) => {
   const [selectall, setSellectAll] = useState(false);
   const [inCart, setincart] = useState<CartItems[]>([]);
 
   const inCarto = useAppSelector((state) => state.CartReducer.cartItems);
+
 
   useEffect(() => {
     setincart(inCarto);
@@ -29,7 +34,7 @@ const ProductinCart = () => {
   };
   return (
     <div >
-      <NavbarCart select={selectall} setSelect={setSellectAll} />
+      <NavbarCart orderId={props.orderId} email={props.email} select={selectall} setSelect={setSellectAll} />
       <div className="flex flex-col items-center pt-10  py-32">
         {inCart.length === 0 ? (
           <CartEmpty text={'Cart Empty no items in here'}/>

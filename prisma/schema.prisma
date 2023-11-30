@@ -20,6 +20,9 @@ model product {
   Rate Float?
   OwnerTag String?
   Description String?
+  
+  weight Float?
+  origin String?
 
   userStoreIds String @db.ObjectId
   usersStore UserStore @relation(fields: [userStoreIds], references: [id])
@@ -55,33 +58,38 @@ model UserStore{
    usersAccount User @relation (fields: [email], references: [email])
    bio String?
    link String? 
+   Adress String
 
    productids String[] @db.ObjectId
    products product[] 
-   
-   orders OrderItem[]
 
    ownerTagsids String[] @db.ObjectId
    ownerTags ownerTags[]
 
    
 }
-model Orders{
-   id String   @id @default(auto()) @map("_id") @db.ObjectId
+model Orderids{
+   id String @id @default(auto()) @map("_id") @db.ObjectId
    email String @unique
    createdAt DateTime @default(now())
+   expired Boolean? @default(false)
+   
+   updatedAt DateTime  @updatedAt
    Method String?
-   Status String?
-   
+   Status String @default("Pending")
    OrderItems OrderItem []
-   
 }
 model OrderItem {
    id String   @id @default(auto()) @map("_id") @db.ObjectId
    orderId String @db.ObjectId 
-   order Orders   @relation(fields: [orderId], references: [id])
-   UserStoreids String[] @db.ObjectId
-   UserStore UserStore @relation(fields: [UserStoreids],references: [id])
+   order Orderids   @relation(fields: [orderId], references: [id])
+
+   UserStoreids String @db.ObjectId
+   
+   quantity Float
+   ProductName String?
+   img String?
+   Price Float?
    productId String @db.ObjectId 
    products product   @relation(fields: [productId], references: [id])
 }

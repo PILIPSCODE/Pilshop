@@ -12,6 +12,7 @@ import BuyNow from "./BuyNow";
 import LikesProduct from "./LikesProduct";
 import { AiFillCaretUp } from "react-icons/ai";
 import { HiReceiptPercent } from "react-icons/hi2";
+import Link from "next/link";
 type props = {
   products: any;
 };
@@ -92,7 +93,9 @@ const RandomStore = (props: props) => {
                      
                         <AddtoCart AddQty={e} />
                      
-                      <BuyNow product={e} />
+                        <Link href={`/product/${e.ProductName}`} className=" bg-green-600 text-white p-1 md:text-base text-xs f-custom">
+                          Buy Now
+                        </Link>
                     </div>
                     <div className="flex justify-between items-center">
                       <h1 className=" md:text-base text-xs ok">

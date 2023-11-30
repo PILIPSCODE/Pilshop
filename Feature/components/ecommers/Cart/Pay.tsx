@@ -3,51 +3,61 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { Appdispatch } from "@/redux/store";
-import { Payy } from "@/redux/features/cart-Slice";
+import Image from "next/image";
 import Rincian from "./Rincian";
 import Details from "./CustomerDetails";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { DeleteProductinCart } from "@/redux/LocalStorage";
 type ko = {
   modalRef: React.RefObject<HTMLDialogElement>;
   PricePay: Number | String;
-  Subtotal:Number
+  Subtotal:Number,
+  orderId:string,
 };
 const Pay = (proops: ko) => {
   const dispact = useDispatch<Appdispatch>();
   const [CustomerDetails,setCustomerDetails] = useState({firstname:"",lastname:"",phone:"",email:""})
   const [tokenpayment,settokenpayment] = useState('')
+  const router = useRouter()
   const Pay = useAppSelector((state) => state.CartReducer.pay);
-  const Payment = useAppSelector((state) => state.CartReducer.paymentgateway);
-  const Orderpay = {
-      order_id:"006",
-      total:String(proops.PricePay),
-      CustomerDetails,
-      listItem:Pay
-  }
+  const [Detail, setDetails] = useState("");
+  const HandleClick = (e: String) => {
+    Detail === e ? setDetails("") : setDetails(`${e}`);
+  };
 
+  const config = {
+    headers:{
+        "Content-Type": "application/json"
+    }
+}
+
+//Submit from Payment
   const handleSubmit = async(e:FormEvent) => {
     e.preventDefault()
-    const config = {
-        headers:{
-            "Content-Type": "application/json"
-        }
+    const Orderpay = {
+        order_id:proops.orderId,
+        total:String(proops.PricePay),
+        CustomerDetails,
+        listItem:Pay
     }
     const response = await axios.post(`http://localhost:8000/payment`,Orderpay,config)
+    await axios.post(`/api/transaction`,{orderId:proops.orderId,data:Pay})
     settokenpayment(response.data.token)
-
+    
      
   }
   
+
+// Transaction Update
   useEffect(() => {
-
- 
-
-
-
     if(tokenpayment){
             (window as any).snap.pay(tokenpayment,{
-               onSuccess:(transaction:any) => {
-                   console.log("Success",transaction)
+               onSuccess:async(transaction:any) => {
+                   await axios.put(`/api/orderidsgenerate/${proops.orderId}`,{Method:transaction.payment_type,Status:"Success",expired:true})
+                   await DeleteProductinCart(Pay)
+                   setCustomerDetails({firstname:"",lastname:"",phone:"",email:""})
+                   proops.modalRef.current?.close()
                },
                onPending:(transaction:any) => {
                    console.log("Pending",transaction)
@@ -55,45 +65,65 @@ const Pay = (proops: ko) => {
                onError:(transaction:any) => {
                    console.log("Error",transaction)
                },
-               onClose:(transaction:any) => {
+               onClose: async(transaction:any) => {
+                await axios.delete(`/api/transaction`,{data:{orderId:proops.orderId}})
                    console.log("customer closed the popup without finishing the payment",transaction)
                }
            })
         }
   },[tokenpayment])
+
   return (
     <div data-theme="dark">
-      <dialog ref={proops.modalRef} className="modal overflow-y-scroll c">
-        <form onSubmit={(e) => handleSubmit(e)} method="dialog" className="modal-box w-11/12 full max-w-5xl c">
-          <div onClick={() => proops.modalRef.current?.close()} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</div>
-          <Details customerDetails={CustomerDetails} setCustomer={setCustomerDetails} />
-          <div className="mt-3 w-11/12 flex flex-col mx-auto bg-slate-600 items-center h-72 rounded-md  overflow-y-scroll">
-            {Pay.map((el, index) => (
-              <div
-                className="w-11/12 bg-base-200 conttainer-cart  flex rounded-lg my-2 h-28 max-lg:w-10/12 max-sm:w-11/12 max-[490px]:flex max-[490px]:flex-col max-[490px]:h-auto"
-                key={index}
-              >
-                <div className="w-28 h-full flex items-center justify-center  mx-1 max-[490px]:w-full  ">
-                  <img
-                    className="max-w-full max-h-24 max-[490px]:max-h-full rounded-md max-[490px]:w-1/2"
-                    src={`${el.product.img}`} 
-                  />
-                </div>
+      <dialog ref={proops.modalRef} className="modal py-16 overflow-x-hidden  c">
+          <div onClick={() => proops.modalRef.current?.close()} className="btn btn-sm z-50  text-lg btn-circle btn-ghost absolute right-10 bg-black top-2">✕</div>
+        <form onSubmit={(e) => handleSubmit(e)} method="dialog" className=" modal-full py-16 px-4 ">
+          <div className="md:w-7/12 m-auto">
 
-                <div className="flex flex-grow">
-                  <div className="flex flex-col justify-center w-48 max-xl:w-20 max-[490px]:w-full my-2 max-[490px]:text-start">
-                    <h1 className=" max-xl:text-lg max-md:text-base max-[567px]:text-sm  max-[490px]:text-base text-xl">
-                      {el.product.ProductName}
-                    </h1>
-                    <h2>Qty:{String(el.jmlh)} </h2>
+          <Details customerDetails={CustomerDetails} setCustomer={setCustomerDetails} />
+          <div className="grid-cols-3  my-6 rounded-lg bg-slate-600 w-11/12 m-auto text-black py-3 px-2 grid max-[583px]:grid-cols-2 md:grid-cols-2   max-lg:grid-cols-2 min-[1415px]:grid-cols-3 min-[1155px]:grid-cols-3 gap-3 md:gap-5 ">
+            {Pay.map((el, index) => (
+                <div
+                key={index}
+               
+                className="flex flex-col w-full overflow-hidden border  border-black  relative font-poppins"
+              >
+                <div className="w-full h-96 bg-white  max-sm:h-72 relative max-[400px]:h-64 ">
+                  <div
+                    className={`duration-150 ${
+                      Detail === el.product.id ? "h-full" : "h-4/6 max-sm:h-3/5"
+                    } relative`}
+                  >
+                    <Image
+                      alt={`product${index}`}
+                      fill
+                      src={`${el.product.img}`}
+                      className="w-full h-full object-cover bg-gray-100 "
+                    />
                   </div>
-                  <div className="flex-grow flex justify-around items-center">
-                    <div className="flex items-center w-56 max-md:w-32  max-[567px]:text-sm ">
-                      <h1 className="mx-2">
-                        {String(Number(el.product.Price) * Number(el.jmlh))} $
+               
+                 
+                  <div className=" bg-gray-100 relative h-full z-40">
+                    <div className="flex flex-col gap-1 justify-end px-2">
+                      <h1 className="  md:text-base max-md:text-sm max-sm:text-xs  ok">
+                        {el.product.ProductName}
                       </h1>
+                      <h1 className="md:text-base text-xs ok">
+                      {Number(el.product.Price)* Number(el.jmlh)} $
+                    </h1>
+                      <h1 className="md:text-base text-xs ok">
+                      Qty:{Number(el.jmlh)} 
+                    </h1>
                     </div>
                   </div>
+                </div>
+  
+                <div
+                 onClick={() => HandleClick(el.product.id)}
+                  className={`w-full text-white flex flex-col ${
+                    Detail === el.product.id ? "opacity-0" : "opacity-100"
+                  }  h-full duration-300 absolute bg-black/50 justify-between`}
+                >
                 </div>
               </div>
             ))}
@@ -110,6 +140,7 @@ const Pay = (proops: ko) => {
               Pay
             </button>
             
+          </div>
           </div>
         </form>
       </dialog>

@@ -13,11 +13,10 @@ const AddProduct = (params: { userCurrent: any }) => {
     stock: 0,
     Description: "",
     OwnerTag: "",
-    userStoreIds: "" || params.userCurrent?.id,
+    userStoreIds: "" || params.userCurrent?.usersStore.id,
     img: "",
   };
   const [product, setProduct] = useState(productObject);
-  console.log(product)
   type badge = {
     badge: String;
   };
@@ -53,7 +52,6 @@ const AddProduct = (params: { userCurrent: any }) => {
       badge: "Barang Elektronik",
     },
   ];
-  console.log(product.Tag);
   const handleaddpro = async (form: React.FormEvent<HTMLFormElement>) => {
     form.preventDefault();
     try {

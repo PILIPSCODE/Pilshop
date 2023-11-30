@@ -193,9 +193,127 @@ html{
   width: 100wh !important;
 }
 
-
 @media (max-width:400px) {
   .f-custom{
     font-size: 10px;
   }
+}
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.modal-full {
+  max-height:100vh;
+  grid-column-start: 1;
+  grid-row-start: 1;
+  width: 100vw;
+  --tw-scale-x: .9;
+  --tw-scale-y: .9;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--b1) / var(--tw-bg-opacity));
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-duration: 200ms;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.modal-open .modal-full,
+.modal-toggle:checked + .modal .modal-full,
+.modal:target .modal-full,
+.modal[open] .modal-full {
+  --tw-translate-y: 0px;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.modal-open .modal-full,
+.modal-toggle:checked + .modal .modal-full,
+.modal:target .modal-full,
+.modal[open] .modal-full {
+  --tw-translate-y: 0px;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.modal-open .modal-full,
+.modal-toggle:checked + .modal .modal-full,
+.modal:target .modal-full,
+.modal[open] .modal-full {
+  --tw-translate-y: 0px;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.modal-open .modal-full,
+.modal-toggle:checked + .modal .modal-full,
+.modal:target .modal-full,
+.modal[open] .modal-full {
+  --tw-translate-y: 0px;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.modal-top :where(.modal-full) {
+  width: 100%;
+  max-width: none;
+  --tw-translate-y: -2.5rem/* -40px */;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: var(--rounded-box, 1rem/* 16px */);
+  border-bottom-right-radius: var(--rounded-box, 1rem/* 16px */);
+}
+.modal-middle :where(.modal-full) {
+  width: 91.666667%;
+  max-width: 32rem/* 512px */;
+  --tw-translate-y: 0px;
+  --tw-scale-x: .9;
+  --tw-scale-y: .9;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  border-top-left-radius: var(--rounded-box, 1rem/* 16px */);
+  border-top-right-radius: var(--rounded-box, 1rem/* 16px */);
+  border-bottom-left-radius: var(--rounded-box, 1rem/* 16px */);
+  border-bottom-right-radius: var(--rounded-box, 1rem/* 16px */);
+}
+.modal-bottom :where(.modal-full) {
+  width: 100%;
+  max-width: none;
+  --tw-translate-y: 2.5rem/* 40px */;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: var(--rounded-box, 1rem/* 16px */);
+  border-top-right-radius: var(--rounded-box, 1rem/* 16px */);
 }

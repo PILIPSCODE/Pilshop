@@ -99,7 +99,7 @@ const Badge = (props:props) => {
     className='flex gap-4  justify-between  items-stretch h-12 max-lg:h-auto w-11/12  mx-10 '>
         {badge.map((el,index) => (
             <SwiperSlide key={index} className='text-center h-full '>
-            <Link href={`${el.badge !== "Untuk Anda"?`/category/${el.badge.replace(/ /g,"").replace(/%2C/g, ",")}`:"/"}`}>
+            <Link href={`${el.badge !== "Untuk Anda"?`/category/${el.badge.replace(/ /g,"-").replace(/%2C/g, ",")}`:"/"}`}>
             <div className="rounded-md flex flex-col h-full  justify-center items-center  mx-auto bg-blue-300  text-slate-700">
 
             <el.icons className='py-1 lg:hidden text-4xl'/>

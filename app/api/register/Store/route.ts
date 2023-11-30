@@ -6,7 +6,7 @@ export const POST = async (req:Request) => {
     try {
         
         const body = await req.json()
-        const { name, bio, link,email} = body;
+        const { name, bio, link,email,Adress} = body;
         
         const emailcheck = await prisma.userStore.findUnique({where: {email}})
         if(emailcheck){
@@ -18,6 +18,7 @@ export const POST = async (req:Request) => {
                 bio,
                 link,
                 email,
+                Adress,
             }
         }
         )

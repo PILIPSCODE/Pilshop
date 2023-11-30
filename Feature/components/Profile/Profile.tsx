@@ -57,7 +57,7 @@ if(params.profileParams !== null){
       <div className="tooltip mx-2 tooltip-bottom"  data-tip={`${params.profileParams?params.profileParams?.name || params?.content :"haven't"} ${params.params === "store"? "store":"content"}`}>
         {params.params === 'store'?
         params.profileParams?.name === params.YourAcc.name
-        ? <Link href={`${params.YourAcc.usersStore?`/${params.YourAcc?.name}/store`:"/auth/store"}`} className="btn"> <FaStore size={25} /></Link> 
+        ? <Link href={`${params.YourAcc.usersStore?`/${params.YourAcc?.name}/store`:"/user/store"}`} className="btn"> <FaStore size={25} /></Link> 
         :<Link href={`${params.profileParams.usersStore?`/${params.profileParams?.name}/store`:""}`} className="btn"> <FaStore size={25} /></Link> 
       :
       <Link href={`/${params.content}`} className="btn"> <FaMobile size={25} /></Link>

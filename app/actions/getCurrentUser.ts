@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import getSS from "./getSesions";
 import prisma from "@/app/libs/prismadb";
 
@@ -23,6 +22,6 @@ export default async function GetCurrentUser() {
    
     return userCurrent;
   } catch (error) {
-    return null
+    console.log(error)
   }
 }

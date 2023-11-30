@@ -11,6 +11,7 @@ import getSS  from "@/app/actions/getCurrentUser"
 const page = async() => {
   const product = await GetProduct()
   const session = await getSS()
+  console.log(session)
 
   
   return (
